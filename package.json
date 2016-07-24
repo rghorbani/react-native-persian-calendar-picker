@@ -1,0 +1,50 @@
+{
+  "name": "react-native-persian-calendar-picker",
+  "version": "1.0.0",
+  "description": "Persian Calendar Picker Component for React Native",
+  "main": "PersianCalendarPicker.js",
+  "scripts": {
+    "test": "eslint ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rghorbani/react-native-persian-calendar-picker"
+  },
+  "keyword": [
+    "persian",
+    "calendar",
+    "picker",
+    "date",
+    "react",
+    "react-native",
+    "ios",
+    "android"
+  ],
+  "author": {
+    "name": "Reza Ghorbani",
+    "email": "r.ghorbani.f@gmail.com"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rghorbani/react-native-persian-calendar-picker/issues"
+  },
+  "homepage": "https://github.com/rghorbani/react-native-persian-calendar-picker",
+  "_npmUser": {
+    "name": "rghorbani",
+    "email": "r.ghorbani.f@gmail.com"
+  },
+  "maintainers": [
+    {
+      "name": "rghorbani",
+      "email": "r.ghorbani.f@gmail.com"
+    }
+  ],
+  "devDependencies": {
+    "babel-eslint": "~6.1.2",
+    "eslint": "~3.1.1",
+    "eslint-plugin-react": "~5.2.2"
+  },
+  "dependencies": {
+    "moment-jalaali": "^0.4.0"
+  }
+}
