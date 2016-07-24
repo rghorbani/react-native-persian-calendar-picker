@@ -3,7 +3,7 @@ Persian Calendar Picker Component for React Native
 
 
 This is a Persian Calendar Picker Component for React Native
-![alt tag](https://raw.github.com/rghorbani/react-native-persian-calendar-picker/master/calendarPicker.gif)
+
 Heavily inspired by [stephy's CalendarPicker](https://github.com/stephy/CalendarPicker)
 
 To use the calendar you just need to:
