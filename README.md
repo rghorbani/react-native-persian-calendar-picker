@@ -39,7 +39,7 @@ PersianCalendarPicker2 = React.createClass({
     return (
       <View style={styles.container}>
 
-        <CalendarPicker
+        <PersianCalendarPicker
           selectedDate={this.state.date}
           onDateChange={this.onDateChange}
           screenWidth={Dimensions.get('window').width}
