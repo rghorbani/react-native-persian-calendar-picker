@@ -91,11 +91,13 @@ var PersianCalendarPicker = React.createClass({
       month,
       year,
     } = this.state;
-    var date = moment(year+'/'+(month + 1)+'/'+day, 'jYYYY/jM/jD');
-    var date2 = new Date(date.year(), date.month(), date.date());
+
+    var persianDate = year+'/'+(month + 1)+'/'+ day;
+
+    var date = moment(persianDate , 'jYYYY/jM/jD');
 
     this.setState({date: date});
-    this.props.onDateChange(date2);
+    this.props.onDateChange(date.toDate(), persianDate);
   },
 
   render() {
