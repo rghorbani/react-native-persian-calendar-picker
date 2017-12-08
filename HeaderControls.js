@@ -8,6 +8,7 @@
 'use strict';
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   View,
   Text,
@@ -20,29 +21,38 @@ var {
   MONTHS,
 } = require('./util');
 
-var HeaderControls = React.createClass({
-  propTypes: {
-    month: React.PropTypes.number.isRequired,
-    year: React.PropTypes.number,
-    getNextYear: React.PropTypes.func.isRequired,
-    getPrevYear: React.PropTypes.func.isRequired,
-    onMonthChange: React.PropTypes.func.isRequired,
+class HeaderControls extends React.Component {
+  
+  static propTypes = {
+
+    month: PropTypes.number.isRequired,
+    year: PropTypes.number,
+    getNextYear: PropTypes.func.isRequired,
+    getPrevYear: PropTypes.func.isRequired,
+    onMonthChange: PropTypes.func.isRequired,
     textStyle: Text.propTypes.style
-  },
-  getInitialState() {
+  }
+
+  constructor(props) {
+
+      super(props)
+      this.state = this.initState()
+  }
+
+  initState() {
     return {
       selectedMonth: this.props.month
     };
-  },
+  }
 
   // Trigger date change if new props are provided.
   // Typically, when selectedDate is changed programmatically.
   //
-  componentWillReceiveProps: function(newProps) {
+  componentWillReceiveProps (newProps) {
     this.setState({
       selectedMonth: newProps.month
     });
-  },
+  }
 
   // Logic seems a bit awkawardly split up between here and the CalendarPicker
   // component, eg: getNextYear is actually modifying the state of the parent,
@@ -65,7 +75,7 @@ var HeaderControls = React.createClass({
         }
       );
     }
-  },
+  }
 
   getPrevious() {
     var prev = this.state.selectedMonth - 1;
@@ -84,7 +94,7 @@ var HeaderControls = React.createClass({
         }
       );
     }
-  },
+  }
 
   previousMonthDisabled() {
     return ( this.props.minDate &&
@@ -92,7 +102,7 @@ var HeaderControls = React.createClass({
                ( this.props.year == this.props.minDate.getFullYear() && this.state.selectedMonth <= this.props.minDate.getMonth() )
              )
            );
-  },
+  }
 
   nextMonthDisabled() {
     return ( this.props.maxDate &&
@@ -100,7 +110,7 @@ var HeaderControls = React.createClass({
                ( this.props.year == this.props.maxDate.getFullYear() && this.state.selectedMonth >= this.props.maxDate.getMonth() )
              )
            );
-  },
+  }
 
   render() {
     var textStyle = this.props.textStyle;
@@ -113,7 +123,7 @@ var HeaderControls = React.createClass({
     }
     else {
       previous = (
-        <TouchableOpacity onPress={this.getPrevious}>
+        <TouchableOpacity onPress={this.getPrevious.bind(this)}>
           <Text style={[styles.prev, textStyle]}>{this.props.previousTitle || 'ماه قبل'}</Text>
         </TouchableOpacity>
       );
@@ -127,7 +137,7 @@ var HeaderControls = React.createClass({
     }
     else {
       next = (
-        <TouchableOpacity onPress={this.getNext}>
+        <TouchableOpacity onPress={this.getNext.bind(this)}>
           <Text style={[styles.next, textStyle]}>{this.props.nextTitle || 'ماه بعد'}</Text>
         </TouchableOpacity>
       );
@@ -149,7 +159,7 @@ var HeaderControls = React.createClass({
 
       </View>
     );
-  },
-});
+  }
+}
 
 module.exports = HeaderControls;

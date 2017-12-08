@@ -8,6 +8,7 @@
 'use strict';
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   View,
   Text,
@@ -22,34 +23,42 @@ var {
 } = require('./util');
 var Day = require('./Day');
 
-var Days = React.createClass({
-  propTypes: {
-    maxDate: React.PropTypes.instanceOf(moment),
-    minDate: React.PropTypes.instanceOf(moment),
-    date: React.PropTypes.object.isRequired,
-    month: React.PropTypes.number.isRequired,
-    year: React.PropTypes.number.isRequired,
-    onDayChange: React.PropTypes.func.isRequired,
-    selectedDayColor: React.PropTypes.string,
-    selectedDayTextColor: React.PropTypes.string,
+class Days extends React.Component {
+
+  static propTypes = {
+    maxDate: PropTypes.instanceOf(moment),
+    minDate: PropTypes.instanceOf(moment),
+    date: PropTypes.object.isRequired,
+    month: PropTypes.number.isRequired,
+    year: PropTypes.number.isRequired,
+    onDayChange: PropTypes.func.isRequired,
+    selectedDayColor: PropTypes.string,
+    selectedDayTextColor: PropTypes.string,
     textStyle: Text.propTypes.style
-  },
-  getInitialState() {
+  }
+
+  constructor(props) {
+    
+      super(props)
+      this.state = this.initState()
+  }
+
+  initState() {
     return {
       selectedStates: []
     };
-  },
+  }
 
   componentDidMount() {
     this.updateSelectedStates(this.props.date.jDate());
-  },
+  }
 
   // Trigger date change if new props are provided.
   // Typically, when selectedDate is changed programmatically.
   //
-  componentWillReceiveProps: function(newProps) {
+  componentWillReceiveProps(newProps) {
     this.updateSelectedStates(newProps.date.jDate());
-  },
+  }
 
   updateSelectedStates(day) {
     var selectedStates = [],
@@ -68,12 +77,12 @@ var Days = React.createClass({
       selectedStates: selectedStates
     });
 
-  },
+  }
 
-  onPressDay(day) {
+  onPressDay = (day)=> {
     this.updateSelectedStates(day);
     this.props.onDayChange({day: day});
-  },
+  }
 
   // Not going to touch this one - I'd look at whether there is a more functional
   // way you can do this using something like `range`, `map`, `partition` and such
@@ -131,11 +140,12 @@ var Days = React.createClass({
     }
 
     return matrix;
-  },
+  }
 
   render() {
     return <View style={styles.daysWrapper}>{ this.getCalendarDays() }</View>;
-  },
-});
+  }
+
+}
 
 module.exports = Days;

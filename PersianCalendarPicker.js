@@ -8,10 +8,12 @@
 'use strict';
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   View,
   Text,
-  TouchableOpacity
+  TouchableOpacity,
+  processColor
 } from 'react-native';
 var moment = require('moment-jalaali');
 
@@ -20,28 +22,34 @@ var HeaderControls = require('./HeaderControls');
 var WeekDaysLabels = require('./WeekDaysLabels');
 var Days = require('./Days');
 
-var PersianCalendarPicker = React.createClass({
-  propTypes: {
-    maxDate: React.PropTypes.instanceOf(Date),
-    minDate: React.PropTypes.instanceOf(Date),
-    selectedDate: React.PropTypes.instanceOf(Date).isRequired,
-    onDateChange: React.PropTypes.func,
-    screenWidth: React.PropTypes.number,
-    weekdays: React.PropTypes.array,
-    months: React.PropTypes.array,
-    previousTitle: React.PropTypes.string,
-    nextTitle: React.PropTypes.string,
-    selectedDayColor: React.PropTypes.string,
-    selectedDayTextColor: React.PropTypes.string,
-    scaleFactor: React.PropTypes.number,
+class PersianCalendarPicker extends React.Component {
+  
+  static propTypes = {
+    maxDate: PropTypes.instanceOf(Date),
+    minDate: PropTypes.instanceOf(Date),
+    selectedDate: PropTypes.instanceOf(Date).isRequired,
+    onDateChange: PropTypes.func,
+    screenWidth: PropTypes.number,
+    weekdays: PropTypes.array,
+    months: PropTypes.array,
+    previousTitle: PropTypes.string,
+    nextTitle: PropTypes.string,
+    selectedDayColor: PropTypes.string,
+    selectedDayTextColor: PropTypes.string,
+    scaleFactor: PropTypes.number,
     textStyle: Text.propTypes.style
-  },
-  getDefaultProps() {
-    return {
-      onDateChange () {}
-    };
-  },
-  getInitialState() {
+  }
+
+  constructor(props) {
+
+    super(props)
+    this.state = this.initState()
+    
+    if(!props.onDateChange)
+      props.onDateChange = ()=>{}
+  }
+
+  initState() {
     // if (this.props.scaleFactor !== undefined) {
     //   styles = StyleSheet.create(makeStyles(this.props.scaleFactor));
     // }
@@ -54,36 +62,39 @@ var PersianCalendarPicker = React.createClass({
       year: date.jYear(),
       selectedDay: []
     };
-  },
+  }
 
   // Trigger date change if new props are provided.
   // Typically, when selectedDate is changed programmatically.
   //
-  componentWillReceiveProps: function(newProps) {
+  componentWillReceiveProps(newProps) {
     var date = moment(newProps.selectedDate);
+
+    console.log("---> " + date)
+
     this.setState({
       date: date,
       day: date.jDate(),
       month: date.jMonth(),
       year: date.jYear(),
     });
-  },
+  }
 
   onDayChange(day) {
     this.setState({day: day.day}, () => { this.onDateChange(); });
-  },
+  }
 
   onMonthChange(month) {
     this.setState({month: month}, () => { this.onDateChange(); });
-  },
+  }
 
   getNextYear(){
     this.setState({year: this.state.year + 1}, () => { this.onDateChange(); });
-  },
+  }
 
   getPrevYear() {
     this.setState({year: this.state.year - 1}, () => { this.onDateChange(); });
-  },
+  }
 
   onDateChange() {
     var {
@@ -96,7 +107,7 @@ var PersianCalendarPicker = React.createClass({
 
     this.setState({date: date});
     this.props.onDateChange(date2);
-  },
+  }
 
   render() {
     return (
@@ -106,9 +117,9 @@ var PersianCalendarPicker = React.createClass({
           minDate={this.props.minDate}
           year={this.state.year}
           month={this.state.month}
-          onMonthChange={this.onMonthChange}
-          getNextYear={this.getNextYear}
-          getPrevYear={this.getPrevYear}
+          onMonthChange={this.onMonthChange.bind(this)}
+          getNextYear={this.getNextYear.bind(this)}
+          getPrevYear={this.getPrevYear.bind(this)}
           months={this.props.months}
           previousTitle={this.props.previousTitle}
           nextTitle={this.props.nextTitle}
@@ -125,14 +136,15 @@ var PersianCalendarPicker = React.createClass({
           month={this.state.month}
           year={this.state.year}
           date={this.state.date}
-          onDayChange={this.onDayChange}
+          onDayChange={this.onDayChange.bind(this)}
           screenWidth={this.props.screenWidth}
           selectedDayTextColor={this.props.selectedDayTextColor}
           textStyle={this.props.textStyle}
         />
       </View>
     );
-  },
-});
+  }
+
+}
 
 module.exports = PersianCalendarPicker;
