@@ -45,6 +45,8 @@
     "eslint-plugin-react": "~5.2.2"
   },
   "dependencies": {
-    "moment-jalaali": "^0.4.0"
+    "moment-jalaali": "^0.4.0",
+    "prop-types": "^15.5.10",
+    "react": "^16.0.0"
   }
 }
