@@ -7,43 +7,42 @@
 
 'use strict';
 
-import React from 'react';
-import {
+const React = require('react');
+const PropTypes = require('prop-types');
+const {
   View,
   Text,
   TouchableOpacity
-} from 'react-native';
+} = require('react-native');
 
 var styles = require('./style');
 
-var Day = React.createClass({
-  propTypes: {
-    date: React.PropTypes.object,
-    onDayChange: React.PropTypes.func,
-    maxDate: React.PropTypes.instanceOf(Date),
-    minDate: React.PropTypes.instanceOf(Date),
-    selected: React.PropTypes.bool,
-    day: React.PropTypes.oneOfType([
-      React.PropTypes.number,
-      React.PropTypes.string
+class Day extends React.Component {
+  static propTypes = {
+    date: PropTypes.object,
+    onDayChange: PropTypes.func,
+    maxDate: PropTypes.instanceOf(Date),
+    minDate: PropTypes.instanceOf(Date),
+    selected: PropTypes.bool,
+    day: PropTypes.oneOfType([
+      PropTypes.number,
+      PropTypes.string
     ]).isRequired,
-    screenWidth: React.PropTypes.number,
-    startFromMonday: React.PropTypes.bool,
-    selectedDayColor: React.PropTypes.string,
-    selectedDayTextColor: React.PropTypes.string,
+    screenWidth: PropTypes.number,
+    startFromMonday: PropTypes.bool,
+    selectedDayColor: PropTypes.string,
+    selectedDayTextColor: PropTypes.string,
     textStyle: Text.propTypes.style
-  },
-  getDefaultProps () {
-    return {
-      onDayChange() {}
-    };
-  },
-  getInitialState () {
+  }
+
+  constructor(props) {
+    super(props);
+
     this.DAY_WIDTH = (this.props.screenWidth - 16) / 7;
     this.SELECTED_DAY_WIDTH = (this.props.screenWidth - 16) / 7 - 10;
     this.BORDER_RADIUS = this.SELECTED_DAY_WIDTH / 2;
-    return null;
-  },
+  }
+
   render() {
     var textStyle = this.props.textStyle;
     if (this.props.selected) {
@@ -85,7 +84,7 @@ var Day = React.createClass({
         );
       }
     }
-  },
-});
+  }
+}
 
 module.exports = Day;

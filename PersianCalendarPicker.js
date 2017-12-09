@@ -7,12 +7,13 @@
 
 'use strict';
 
-import React from 'react';
-import {
+const React = require('react');
+const PropTypes = require('prop-types');
+const {
   View,
   Text,
   TouchableOpacity
-} from 'react-native';
+} = require('react-native');
 var moment = require('moment-jalaali');
 
 var styles = require('./style');
@@ -20,41 +21,44 @@ var HeaderControls = require('./HeaderControls');
 var WeekDaysLabels = require('./WeekDaysLabels');
 var Days = require('./Days');
 
-var PersianCalendarPicker = React.createClass({
-  propTypes: {
-    maxDate: React.PropTypes.instanceOf(Date),
-    minDate: React.PropTypes.instanceOf(Date),
-    selectedDate: React.PropTypes.instanceOf(Date).isRequired,
-    onDateChange: React.PropTypes.func,
-    screenWidth: React.PropTypes.number,
-    weekdays: React.PropTypes.array,
-    months: React.PropTypes.array,
-    previousTitle: React.PropTypes.string,
-    nextTitle: React.PropTypes.string,
-    selectedDayColor: React.PropTypes.string,
-    selectedDayTextColor: React.PropTypes.string,
-    scaleFactor: React.PropTypes.number,
+class PersianCalendarPicker extends React.Component {
+  static propTypes = {
+    maxDate: PropTypes.instanceOf(Date),
+    minDate: PropTypes.instanceOf(Date),
+    selectedDate: PropTypes.instanceOf(Date).isRequired,
+    onDateChange: PropTypes.func,
+    screenWidth: PropTypes.number,
+    weekdays: PropTypes.array,
+    months: PropTypes.array,
+    previousTitle: PropTypes.string,
+    nextTitle: PropTypes.string,
+    selectedDayColor: PropTypes.string,
+    selectedDayTextColor: PropTypes.string,
+    scaleFactor: PropTypes.number,
     textStyle: Text.propTypes.style
-  },
-  getDefaultProps() {
-    return {
-      onDateChange () {}
-    };
-  },
-  getInitialState() {
+  }
+
+  constructor(props) {
+    super(props);
     // if (this.props.scaleFactor !== undefined) {
     //   styles = StyleSheet.create(makeStyles(this.props.scaleFactor));
     // }
     var date = moment(this.props.selectedDate);
     // console.log(date.format('jYYYY/jMM/jDD'));
-    return {
+    this.state = {
       date: date,
       day: date.jDate(),
       month: date.jMonth(),
       year: date.jYear(),
       selectedDay: []
     };
-  },
+
+    (this: any).onDayChange = this.onDayChange.bind(this);
+    (this: any).onMonthChange = this.onMonthChange.bind(this);
+    (this: any).getNextYear = this.getNextYear.bind(this);
+    (this: any).getPrevYear = this.getPrevYear.bind(this);
+    (this: any).onDateChange = this.onDateChange.bind(this);
+  }
 
   // Trigger date change if new props are provided.
   // Typically, when selectedDate is changed programmatically.
@@ -67,23 +71,23 @@ var PersianCalendarPicker = React.createClass({
       month: date.jMonth(),
       year: date.jYear(),
     });
-  },
+  }
 
   onDayChange(day) {
     this.setState({day: day.day}, () => { this.onDateChange(); });
-  },
+  }
 
   onMonthChange(month) {
     this.setState({month: month}, () => { this.onDateChange(); });
-  },
+  }
 
   getNextYear(){
     this.setState({year: this.state.year + 1}, () => { this.onDateChange(); });
-  },
+  }
 
   getPrevYear() {
     this.setState({year: this.state.year - 1}, () => { this.onDateChange(); });
-  },
+  }
 
   onDateChange() {
     var {
@@ -96,7 +100,7 @@ var PersianCalendarPicker = React.createClass({
 
     this.setState({date: date});
     this.props.onDateChange(date2);
-  },
+  }
 
   render() {
     return (
@@ -132,7 +136,7 @@ var PersianCalendarPicker = React.createClass({
         />
       </View>
     );
-  },
-});
+  }
+}
 
 module.exports = PersianCalendarPicker;

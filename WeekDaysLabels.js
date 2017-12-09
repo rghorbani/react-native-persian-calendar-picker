@@ -7,26 +7,30 @@
 
 'use strict';
 
-import React from 'react';
-import {
+const React = require('react');
+const PropTypes = require('prop-types');
+const {
   View,
   Text,
-} from 'react-native';
+} = require('react-native');
 
 var styles = require('./style');
 var {
   WEEKDAYS,
 } = require('./util');
 
-var WeekDaysLabels = React.createClass({
-  propTypes: {
-    screenWidth: React.PropTypes.number,
+class WeekDaysLabels extends React.Component {
+  static propTypes: {
+    screenWidth: PropTypes.number,
     textStyle: Text.propTypes.style
-  },
-  getInitialState() {
+  }
+
+  constructor(props) {
+    super(props);
+
     this.DAY_WIDTH = (this.props.screenWidth - 16)/7;
-    return null;
-  },
+  }
+
   render() {
     var labels = (this.props.weekdays || WEEKDAYS).map((day, key) => { return <Text key={key} style={[styles.dayLabels, this.props.textStyle]}>{day}</Text>; });
     labels.reverse();
@@ -35,7 +39,7 @@ var WeekDaysLabels = React.createClass({
         { labels }
       </View>
     );
-  },
-});
+  }
+}
 
 module.exports = WeekDaysLabels;

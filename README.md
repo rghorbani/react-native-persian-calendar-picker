@@ -4,38 +4,39 @@ Persian Calendar Picker Component for React Native
 
 This is a Persian Calendar Picker Component for React Native
 
-Heavily inspired by [stephy's CalendarPicker](https://github.com/stephy/CalendarPicker)
-
 To use the calendar you just need to:
 
 	npm install react-native-persian-calendar-picker --save
 
 How to use it:
 ```js
-import React, { Component } from 'react';
-import {
+const React = require('react');
+const {
   AppRegistry,
   Dimensions,
   StyleSheet,
   Text,
   View
-} from 'react-native';
+} = require('react-native');
 
-var PersianCalendarPicker = require('react-native-persian-calendar-picker'),
-    PersianCalendarPicker2;
+var PersianCalendarPicker = require('react-native-persian-calendar-picker');
 
-PersianCalendarPicker2 = React.createClass({
-  getInitialState: function() {
-    return {
+class PersianCalendarPickerExample extends React.Component {
+  constructor(props) {
+		super(props);
+
+    this.state = {
       date: new Date(),
     };
-  },
 
-  onDateChange: function(date) {
+		(this: any).onDateChange = this.onDateChange.bind(this);
+  }
+
+  onDateChange(date) {
     this.setState({ date: date });
-  },
+  }
 
-  render: function() {
+  render() {
     return (
       <View style={styles.container}>
 
@@ -49,7 +50,7 @@ PersianCalendarPicker2 = React.createClass({
       </View>
     );
   }
-});
+}
 
 const styles = StyleSheet.create({
   container: {

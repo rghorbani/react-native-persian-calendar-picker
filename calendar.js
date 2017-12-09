@@ -7,14 +7,14 @@
 
 'use strict';
 
-import React from 'react';
-import {
+const React = require('react');
+const {
   Dimensions,
   StyleSheet,
   View,
   Text,
   TouchableOpacity
-} from 'react-native';
+} = require('react-native');
 
 var {
   WEEKDAYS,

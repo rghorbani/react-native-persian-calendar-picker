@@ -7,12 +7,13 @@
 
 'use strict';
 
-import React from 'react';
-import {
+const React = require('react');
+const PropTypes = require('prop-types');
+const {
   View,
   Text,
   TouchableOpacity
-} from 'react-native';
+} = require('react-native');
 
 var styles = require('./style');
 var {
@@ -20,29 +21,37 @@ var {
   MONTHS,
 } = require('./util');
 
-var HeaderControls = React.createClass({
-  propTypes: {
-    month: React.PropTypes.number.isRequired,
-    year: React.PropTypes.number,
-    getNextYear: React.PropTypes.func.isRequired,
-    getPrevYear: React.PropTypes.func.isRequired,
-    onMonthChange: React.PropTypes.func.isRequired,
+class HeaderControls extends React.Component {
+  static propTypes = {
+    month: PropTypes.number.isRequired,
+    year: PropTypes.number,
+    getNextYear: PropTypes.func.isRequired,
+    getPrevYear: PropTypes.func.isRequired,
+    onMonthChange: PropTypes.func.isRequired,
     textStyle: Text.propTypes.style
-  },
-  getInitialState() {
-    return {
+  }
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
       selectedMonth: this.props.month
     };
-  },
+
+    (this: any).getNext = this.getNext.bind(this);
+    (this: any).getPrevious = this.getPrevious.bind(this);
+    (this: any).previousMonthDisabled = this.previousMonthDisabled.bind(this);
+    (this: any).nextMonthDisabled = this.nextMonthDisabled.bind(this);
+  }
 
   // Trigger date change if new props are provided.
   // Typically, when selectedDate is changed programmatically.
   //
-  componentWillReceiveProps: function(newProps) {
+  componentWillReceiveProps(newProps) {
     this.setState({
       selectedMonth: newProps.month
     });
-  },
+  }
 
   // Logic seems a bit awkawardly split up between here and the CalendarPicker
   // component, eg: getNextYear is actually modifying the state of the parent,
@@ -65,7 +74,7 @@ var HeaderControls = React.createClass({
         }
       );
     }
-  },
+  }
 
   getPrevious() {
     var prev = this.state.selectedMonth - 1;
@@ -84,7 +93,7 @@ var HeaderControls = React.createClass({
         }
       );
     }
-  },
+  }
 
   previousMonthDisabled() {
     return ( this.props.minDate &&
@@ -92,7 +101,7 @@ var HeaderControls = React.createClass({
                ( this.props.year == this.props.minDate.getFullYear() && this.state.selectedMonth <= this.props.minDate.getMonth() )
              )
            );
-  },
+  }
 
   nextMonthDisabled() {
     return ( this.props.maxDate &&
@@ -100,7 +109,7 @@ var HeaderControls = React.createClass({
                ( this.props.year == this.props.maxDate.getFullYear() && this.state.selectedMonth >= this.props.maxDate.getMonth() )
              )
            );
-  },
+  }
 
   render() {
     var textStyle = this.props.textStyle;
@@ -149,7 +158,7 @@ var HeaderControls = React.createClass({
 
       </View>
     );
-  },
-});
+  }
+}
 
 module.exports = HeaderControls;
