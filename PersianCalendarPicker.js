@@ -63,7 +63,7 @@ class PersianCalendarPicker extends React.Component {
   // Trigger date change if new props are provided.
   // Typically, when selectedDate is changed programmatically.
   //
-  componentWillReceiveProps: function(newProps) {
+  componentWillReceiveProps(newProps) {
     var date = moment(newProps.selectedDate);
     this.setState({
       date: date,
