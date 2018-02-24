@@ -25,14 +25,14 @@ var Day = require('./Day');
 
 class Days extends React.Component {
   static propTypes = {
-    maxDate: React.PropTypes.instanceOf(moment),
-    minDate: React.PropTypes.instanceOf(moment),
-    date: React.PropTypes.object.isRequired,
-    month: React.PropTypes.number.isRequired,
-    year: React.PropTypes.number.isRequired,
-    onDayChange: React.PropTypes.func.isRequired,
-    selectedDayColor: React.PropTypes.string,
-    selectedDayTextColor: React.PropTypes.string,
+    maxDate: PropTypes.instanceOf(moment),
+    minDate: PropTypes.instanceOf(moment),
+    date: PropTypes.object.isRequired,
+    month: PropTypes.number.isRequired,
+    year: PropTypes.number.isRequired,
+    onDayChange: PropTypes.func.isRequired,
+    selectedDayColor: PropTypes.string,
+    selectedDayTextColor: PropTypes.string,
     textStyle: Text.propTypes.style
   }
 
