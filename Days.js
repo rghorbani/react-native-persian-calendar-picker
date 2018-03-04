@@ -134,7 +134,7 @@ class Days extends React.Component {
       }
       matrix[i] = [];
       columns.reverse();
-      matrix[i].push(<View style={styles.weekRow}>{columns}</View>);
+      matrix[i].push(<View key={i} style={styles.weekRow}>{columns}</View>);
     }
 
     return matrix;
