@@ -75,7 +75,7 @@ class Day extends React.Component {
           <View style={styles.dayWrapper}>
             <TouchableOpacity
             style={styles.dayButton}
-            onPress={() => this.props.onDayChange(this.props.day) }>
+            onPress={() => this.props.day !== '' ? this.props.onDayChange(this.props.day) : null }>
               <Text style={[styles.dayLabel, textStyle]}>
                 {this.props.day}
               </Text>
