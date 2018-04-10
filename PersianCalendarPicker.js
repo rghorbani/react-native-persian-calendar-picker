@@ -132,6 +132,7 @@ class PersianCalendarPicker extends React.Component {
           onDayChange={this.onDayChange}
           screenWidth={this.props.screenWidth}
           selectedDayTextColor={this.props.selectedDayTextColor}
+          selectedDayColor={this.props.selectedDayColor}
           textStyle={this.props.textStyle}
         />
       </View>
