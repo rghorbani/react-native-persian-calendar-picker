@@ -9,10 +9,10 @@
 
 'use strict';
 
-import {
+const {
   Dimensions,
   StyleSheet,
-} from 'react-native';
+} = require('react-native');
 
 const scale = Dimensions.get('window').width / 375;
 
@@ -20,7 +20,7 @@ function normalize(size: number): number {
   return Math.round(scale * size);
 }
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
   calendar: {
     height: normalize(320),
     marginTop: normalize(10),

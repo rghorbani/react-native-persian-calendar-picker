@@ -10,12 +10,12 @@
 const React = require('react');
 const PropTypes = require('prop-types');
 const {
-  View,
   Text,
-  TouchableOpacity
+  TouchableOpacity,
+  View,
 } = require('react-native');
 
-var styles = require('./style');
+const styles = require('./style');
 
 class Day extends React.Component {
   static propTypes = {
@@ -33,7 +33,7 @@ class Day extends React.Component {
     selectedDayColor: PropTypes.string,
     selectedDayTextColor: PropTypes.string,
     textStyle: Text.propTypes.style
-  }
+  };
 
   constructor(props) {
     super(props);
@@ -41,19 +41,22 @@ class Day extends React.Component {
     this.DAY_WIDTH = (this.props.screenWidth - 16) / 7;
     this.SELECTED_DAY_WIDTH = (this.props.screenWidth - 16) / 7 - 10;
     this.BORDER_RADIUS = this.SELECTED_DAY_WIDTH / 2;
+
+    this.onDayChange = this.onDayChange.bind(this);
   }
 
   render() {
-    var textStyle = this.props.textStyle;
+    let textStyle = this.props.textStyle;
     if (this.props.selected) {
-      var selectedDayColorStyle = this.props.selectedDayColor ? {backgroundColor: this.props.selectedDayColor} : {};
-      var selectedDayTextColorStyle = this.props.selectedDayTextColor ? {color: this.props.selectedDayTextColor} : {};
+      let selectedDayColorStyle = this.props.selectedDayColor ? {backgroundColor: this.props.selectedDayColor} : {};
+      let selectedDayTextColorStyle = this.props.selectedDayTextColor ? {color: this.props.selectedDayTextColor} : {};
       return (
         <View style={styles.dayWrapper}>
           <View style={[styles.dayButtonSelected, selectedDayColorStyle]}>
             <TouchableOpacity
               style={styles.dayButton}
-              onPress={() => this.props.onDayChange(this.props.day) }>
+              onPress={() => this.onDayChange() }
+            >
               <Text style={[styles.dayLabel, textStyle, selectedDayTextColorStyle]}>
                 {this.props.day}
               </Text>
@@ -74,8 +77,9 @@ class Day extends React.Component {
         return (
           <View style={styles.dayWrapper}>
             <TouchableOpacity
-            style={styles.dayButton}
-            onPress={() => this.props.day !== '' ? this.props.onDayChange(this.props.day) : null }>
+              style={styles.dayButton}
+              onPress={() => this.onDayChange()}
+            >
               <Text style={[styles.dayLabel, textStyle]}>
                 {this.props.day}
               </Text>
@@ -84,6 +88,10 @@ class Day extends React.Component {
         );
       }
     }
+  }
+
+  onDayChange() {
+    this.props.onDayChange && this.props.onDayChange(this.props.day);
   }
 }
 

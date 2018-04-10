@@ -10,14 +10,13 @@
 const React = require('react');
 const PropTypes = require('prop-types');
 const {
-  View,
   Text,
-  TouchableOpacity
+  TouchableOpacity,
+  View,
 } = require('react-native');
 
-var styles = require('./style');
-var {
-  WEEKDAYS,
+const styles = require('./style');
+const {
   MONTHS,
 } = require('./util');
 
@@ -29,7 +28,7 @@ class HeaderControls extends React.Component {
     getPrevYear: PropTypes.func.isRequired,
     onMonthChange: PropTypes.func.isRequired,
     textStyle: Text.propTypes.style
-  }
+  };
 
   constructor(props) {
     super(props);
@@ -38,10 +37,10 @@ class HeaderControls extends React.Component {
       selectedMonth: this.props.month
     };
 
-    (this: any).getNext = this.getNext.bind(this);
-    (this: any).getPrevious = this.getPrevious.bind(this);
-    (this: any).previousMonthDisabled = this.previousMonthDisabled.bind(this);
-    (this: any).nextMonthDisabled = this.nextMonthDisabled.bind(this);
+    this.getNext = this.getNext.bind(this);
+    this.getPrevious = this.getPrevious.bind(this);
+    this.previousMonthDisabled = this.previousMonthDisabled.bind(this);
+    this.nextMonthDisabled = this.nextMonthDisabled.bind(this);
   }
 
   // Trigger date change if new props are provided.
@@ -58,7 +57,7 @@ class HeaderControls extends React.Component {
   // could just let header controls hold all of the logic and have CalendarPicker
   // `onChange` callback fire and update itself on each change
   getNext() {
-    var next = this.state.selectedMonth + 1;
+    let next = this.state.selectedMonth + 1;
     if (next > 11) {
       this.setState( { selectedMonth: 0 },
         // Run this function as a callback to ensure state is set first
@@ -77,7 +76,7 @@ class HeaderControls extends React.Component {
   }
 
   getPrevious() {
-    var prev = this.state.selectedMonth - 1;
+    let prev = this.state.selectedMonth - 1;
     if (prev < 0) {
       this.setState({ selectedMonth: 11},
         // Run this function as a callback to ensure state is set first
@@ -112,9 +111,9 @@ class HeaderControls extends React.Component {
   }
 
   render() {
-    var textStyle = this.props.textStyle;
+    let textStyle = this.props.textStyle;
 
-    var previous;
+    let previous;
     if ( this.previousMonthDisabled() ) {
       previous = (
         <Text style={[styles.prev, textStyle, styles.disabledTextColor]}>{this.props.previousTitle || 'ماه قبل'}</Text>
@@ -128,7 +127,7 @@ class HeaderControls extends React.Component {
       );
     }
 
-    var next;
+    let next;
     if ( this.nextMonthDisabled() ) {
       next = (
         <Text style={[styles.next, textStyle, styles.disabledTextColor]}>{this.props.nextTitle || 'ماه بعد'}</Text>

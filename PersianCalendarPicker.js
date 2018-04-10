@@ -9,17 +9,16 @@
 
 const React = require('react');
 const PropTypes = require('prop-types');
+const moment = require('moment-jalaali');
 const {
-  View,
   Text,
-  TouchableOpacity
+  View,
 } = require('react-native');
-var moment = require('moment-jalaali');
 
-var styles = require('./style');
-var HeaderControls = require('./HeaderControls');
-var WeekDaysLabels = require('./WeekDaysLabels');
-var Days = require('./Days');
+const styles = require('./style');
+const HeaderControls = require('./HeaderControls');
+const WeekDaysLabels = require('./WeekDaysLabels');
+const Days = require('./Days');
 
 class PersianCalendarPicker extends React.Component {
   static propTypes = {
@@ -36,14 +35,14 @@ class PersianCalendarPicker extends React.Component {
     selectedDayTextColor: PropTypes.string,
     scaleFactor: PropTypes.number,
     textStyle: Text.propTypes.style
-  }
+  };
 
   constructor(props) {
     super(props);
     // if (this.props.scaleFactor !== undefined) {
     //   styles = StyleSheet.create(makeStyles(this.props.scaleFactor));
     // }
-    var date = moment(this.props.selectedDate);
+    let date = moment(this.props.selectedDate);
     // console.log(date.format('jYYYY/jMM/jDD'));
     this.state = {
       date: date,
@@ -53,18 +52,18 @@ class PersianCalendarPicker extends React.Component {
       selectedDay: []
     };
 
-    (this: any).onDayChange = this.onDayChange.bind(this);
-    (this: any).onMonthChange = this.onMonthChange.bind(this);
-    (this: any).getNextYear = this.getNextYear.bind(this);
-    (this: any).getPrevYear = this.getPrevYear.bind(this);
-    (this: any).onDateChange = this.onDateChange.bind(this);
+    this.onDayChange = this.onDayChange.bind(this);
+    this.onMonthChange = this.onMonthChange.bind(this);
+    this.getNextYear = this.getNextYear.bind(this);
+    this.getPrevYear = this.getPrevYear.bind(this);
+    this.onDateChange = this.onDateChange.bind(this);
   }
 
   // Trigger date change if new props are provided.
   // Typically, when selectedDate is changed programmatically.
   //
   componentWillReceiveProps(newProps) {
-    var date = moment(newProps.selectedDate);
+    let date = moment(newProps.selectedDate);
     this.setState({
       date: date,
       day: date.jDate(),
@@ -90,13 +89,13 @@ class PersianCalendarPicker extends React.Component {
   }
 
   onDateChange() {
-    var {
+    let {
       day,
       month,
       year,
     } = this.state;
-    var date = moment(year+'/'+(month + 1)+'/'+day, 'jYYYY/jM/jD');
-    var date2 = new Date(date.year(), date.month(), date.date());
+    let date = moment(year + '/' + (month + 1) + '/' + day, 'jYYYY/jM/jD');
+    let date2 = new Date(date.year(), date.month(), date.date());
 
     this.setState({date: date});
     this.props.onDateChange(date2);

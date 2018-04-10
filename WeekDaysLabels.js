@@ -10,12 +10,12 @@
 const React = require('react');
 const PropTypes = require('prop-types');
 const {
-  View,
   Text,
+  View,
 } = require('react-native');
 
-var styles = require('./style');
-var {
+const styles = require('./style');
+const {
   WEEKDAYS,
 } = require('./util');
 
@@ -23,20 +23,20 @@ class WeekDaysLabels extends React.Component {
   static propTypes: {
     screenWidth: PropTypes.number,
     textStyle: Text.propTypes.style
-  }
+  };
 
   constructor(props) {
     super(props);
 
-    this.DAY_WIDTH = (this.props.screenWidth - 16)/7;
+    this.DAY_WIDTH = (this.props.screenWidth - 16) / 7;
   }
 
   render() {
-    var labels = (this.props.weekdays || WEEKDAYS).map((day, key) => { return <Text key={key} style={[styles.dayLabels, this.props.textStyle]}>{day}</Text>; });
+    let labels = (this.props.weekdays || WEEKDAYS).map((day, key) => { return <Text key={key} style={[styles.dayLabels, this.props.textStyle]}>{day}</Text>; });
     labels.reverse();
     return (
       <View style={styles.dayLabelsWrapper}>
-        { labels }
+        {labels}
       </View>
     );
   }

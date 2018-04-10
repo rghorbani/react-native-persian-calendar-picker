@@ -9,19 +9,18 @@
 
 const React = require('react');
 const PropTypes = require('prop-types');
+const moment = require('moment-jalaali');
 const {
-  View,
   Text,
-  TouchableOpacity
+  View,
 } = require('react-native');
-var moment = require('moment-jalaali');
 
-var styles = require('./style');
-var {
+const styles = require('./style');
+const {
   MAX_ROWS,
   MAX_COLUMNS,
 } = require('./util');
-var Day = require('./Day');
+const Day = require('./Day');
 
 class Days extends React.Component {
   static propTypes = {
@@ -34,7 +33,7 @@ class Days extends React.Component {
     selectedDayColor: PropTypes.string,
     selectedDayTextColor: PropTypes.string,
     textStyle: Text.propTypes.style
-  }
+  };
 
   constructor(props) {
     super(props);
@@ -43,9 +42,9 @@ class Days extends React.Component {
       selectedStates: []
     };
 
-    (this: any).updateSelectedStates = this.updateSelectedStates.bind(this);
-    (this: any).onPressDay = this.onPressDay.bind(this);
-    (this: any).getCalendarDays = this.getCalendarDays.bind(this);
+    this.updateSelectedStates = this.updateSelectedStates.bind(this);
+    this.onPressDay = this.onPressDay.bind(this);
+    this.getCalendarDays = this.getCalendarDays.bind(this);
   }
 
   componentDidMount() {
@@ -60,11 +59,10 @@ class Days extends React.Component {
   }
 
   updateSelectedStates(day) {
-    var selectedStates = [],
-      daysInMonth = moment.jDaysInMonth(this.props.year, this.props.month),
-      i;
+    let selectedStates = [],
+      daysInMonth = moment.jDaysInMonth(this.props.year, this.props.month);
 
-    for (i = 1; i <= daysInMonth; i++) {
+    for (let i = 1; i <= daysInMonth; i++) {
       if (i === day) {
         selectedStates.push(true);
       } else {
@@ -87,28 +85,26 @@ class Days extends React.Component {
   // (see underscore.js), or just break it up into steps: first generate the array for
   // data, then map that into the components
   getCalendarDays() {
-    var columns,
+    let columns,
       matrix = [],
-      i,
-      j,
       month = this.props.month,
       year = this.props.year,
       currentDay = 0,
-      thisMonthFirstDay = moment(year+'/'+(month + 1)+'/1', 'jYYYY/jM/jD'),
+      thisMonthFirstDay = moment(year + '/' + (month + 1) + '/1', 'jYYYY/jM/jD'),
       dayOfWeek = (thisMonthFirstDay.weekday() + 1) % 7,
       slotsAccumulator = 0;
 
-    for (i = 0; i < MAX_ROWS; i++ ) { // Week rows
+    for (let i = 0; i < MAX_ROWS; i++ ) { // Week rows
       columns = [];
 
-      for (j = 0; j < MAX_COLUMNS; j++) { // Day columns
+      for (let j = 0; j < MAX_COLUMNS; j++) { // Day columns
         if (slotsAccumulator >= dayOfWeek) {
           if (currentDay < moment.jDaysInMonth(year, month)) {
             columns.push(<Day
                       key={j}
-                      day={currentDay+1}
+                      day={currentDay + 1}
                       selected={this.state.selectedStates[currentDay]}
-                      date={moment(year+'/'+(month + 1)+'/'+(currentDay + 1), 'jYYYY/jM/jD')}
+                      date={moment(year + '/' + (month + 1) + '/' + (currentDay + 1), 'jYYYY/jM/jD')}
                       maxDate={this.props.maxDate}
                       minDate={this.props.minDate}
                       onDayChange={this.onPressDay}
@@ -141,7 +137,11 @@ class Days extends React.Component {
   }
 
   render() {
-    return <View style={styles.daysWrapper}>{ this.getCalendarDays() }</View>;
+    return (
+      <View style={styles.daysWrapper}>
+        {this.getCalendarDays()}
+      </View>
+    );
   }
 }
 
