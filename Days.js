@@ -24,8 +24,8 @@ const Day = require('./Day');
 
 class Days extends React.Component {
   static propTypes = {
-    maxDate: PropTypes.instanceOf(moment),
-    minDate: PropTypes.instanceOf(moment),
+    maxDate: PropTypes.instanceOf(Date),
+    minDate: PropTypes.instanceOf(Date),
     date: PropTypes.object.isRequired,
     month: PropTypes.number.isRequired,
     year: PropTypes.number.isRequired,
