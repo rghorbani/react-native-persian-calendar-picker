@@ -9,16 +9,10 @@
 
 const React = require('react');
 const PropTypes = require('prop-types');
-const {
-  Text,
-  TouchableOpacity,
-  View,
-} = require('react-native');
+const { Text, TouchableOpacity, View } = require('react-native');
 
 const styles = require('./style');
-const {
-  MONTHS,
-} = require('./util');
+const { MONTHS } = require('./util');
 
 class HeaderControls extends React.Component {
   static propTypes = {

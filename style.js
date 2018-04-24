@@ -9,10 +9,7 @@
 
 'use strict';
 
-const {
-  Dimensions,
-  StyleSheet,
-} = require('react-native');
+const { Dimensions, StyleSheet } = require('react-native');
 
 const scale = Dimensions.get('window').width / 375;
 

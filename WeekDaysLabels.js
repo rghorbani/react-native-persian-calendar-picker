@@ -9,15 +9,10 @@
 
 const React = require('react');
 const PropTypes = require('prop-types');
-const {
-  Text,
-  View,
-} = require('react-native');
+const { Text, View } = require('react-native');
 
 const styles = require('./style');
-const {
-  WEEKDAYS,
-} = require('./util');
+const { WEEKDAYS } = require('./util');
 
 class WeekDaysLabels extends React.Component {
   static propTypes: {

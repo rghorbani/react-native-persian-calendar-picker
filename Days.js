@@ -9,18 +9,12 @@
 
 const React = require('react');
 const PropTypes = require('prop-types');
-const moment = require('moment-jalaali');
-const {
-  Text,
-  View,
-} = require('react-native');
+const jMoment = require('moment-jalaali');
+const { Text, View } = require('react-native');
 
-const styles = require('./style');
-const {
-  MAX_ROWS,
-  MAX_COLUMNS,
-} = require('./util');
 const Day = require('./Day');
+const styles = require('./style');
+const { MAX_ROWS, MAX_COLUMNS } = require('./util');
 
 class Days extends React.Component {
   static propTypes = {
@@ -60,7 +54,7 @@ class Days extends React.Component {
 
   updateSelectedStates(day) {
     let selectedStates = [],
-      daysInMonth = moment.jDaysInMonth(this.props.year, this.props.month);
+      daysInMonth = jMoment.jDaysInMonth(this.props.year, this.props.month);
 
     for (let i = 1; i <= daysInMonth; i++) {
       if (i === day) {
@@ -90,8 +84,8 @@ class Days extends React.Component {
       month = this.props.month,
       year = this.props.year,
       currentDay = 0,
-      thisMonthFirstDay = moment(year + '/' + (month + 1) + '/1', 'jYYYY/jM/jD'),
-      dayOfWeek = (thisMonthFirstDay.weekday() + 1) % 7,
+      thisMonthFirstDay = jMoment(year + '/' + (month + 1) + '/1', 'jYYYY/jM/jD'),
+      dayOfWeek = (thisMonthFirstDay.weekday() - 1) % 7,
       slotsAccumulator = 0;
 
     for (let i = 0; i < MAX_ROWS; i++ ) { // Week rows
@@ -99,12 +93,12 @@ class Days extends React.Component {
 
       for (let j = 0; j < MAX_COLUMNS; j++) { // Day columns
         if (slotsAccumulator >= dayOfWeek) {
-          if (currentDay < moment.jDaysInMonth(year, month)) {
+          if (currentDay < jMoment.jDaysInMonth(year, month)) {
             columns.push(<Day
                       key={j}
                       day={currentDay + 1}
                       selected={this.state.selectedStates[currentDay]}
-                      date={moment(year + '/' + (month + 1) + '/' + (currentDay + 1), 'jYYYY/jM/jD')}
+                      date={jMoment(year + '/' + (month + 1) + '/' + (currentDay + 1), 'jYYYY/jM/jD')}
                       maxDate={this.props.maxDate}
                       minDate={this.props.minDate}
                       onDayChange={this.onPressDay}
@@ -113,7 +107,7 @@ class Days extends React.Component {
                       selectedDayTextColor={this.props.selectedDayTextColor}
                       textStyle={this.props.textStyle} />);
             currentDay++;
-          } else if (currentDay >= moment.jDaysInMonth(year, month)) {
+          } else if (currentDay >= jMoment.jDaysInMonth(year, month)) {
               columns.push(<Day
                           key={j}
                           day={''}

@@ -9,16 +9,13 @@
 
 const React = require('react');
 const PropTypes = require('prop-types');
-const moment = require('moment-jalaali');
-const {
-  Text,
-  View,
-} = require('react-native');
+const jMoment = require('moment-jalaali');
+const { Text, View } = require('react-native');
 
-const styles = require('./style');
+const Days = require('./Days');
 const HeaderControls = require('./HeaderControls');
 const WeekDaysLabels = require('./WeekDaysLabels');
-const Days = require('./Days');
+const styles = require('./style');
 
 class PersianCalendarPicker extends React.Component {
   static propTypes = {
@@ -42,7 +39,7 @@ class PersianCalendarPicker extends React.Component {
     // if (this.props.scaleFactor !== undefined) {
     //   styles = StyleSheet.create(makeStyles(this.props.scaleFactor));
     // }
-    let date = moment(this.props.selectedDate);
+    let date = jMoment(this.props.selectedDate);
     // console.log(date.format('jYYYY/jMM/jDD'));
     this.state = {
       date: date,
@@ -63,7 +60,7 @@ class PersianCalendarPicker extends React.Component {
   // Typically, when selectedDate is changed programmatically.
   //
   componentWillReceiveProps(newProps) {
-    let date = moment(newProps.selectedDate);
+    let date = jMoment(newProps.selectedDate);
     this.setState({
       date: date,
       day: date.jDate(),
@@ -94,7 +91,7 @@ class PersianCalendarPicker extends React.Component {
       month,
       year,
     } = this.state;
-    let date = moment(year + '/' + (month + 1) + '/' + day, 'jYYYY/jM/jD');
+    let date = jMoment(year + '/' + (month + 1) + '/' + day, 'jYYYY/jM/jD');
     let date2 = new Date(date.year(), date.month(), date.date());
 
     this.setState({date: date});

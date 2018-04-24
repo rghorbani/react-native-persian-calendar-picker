@@ -1,7 +1,7 @@
 {
   "name": "react-native-persian-calendar-picker",
-  "version": "1.1.7",
-  "description": "Persian Calendar Picker Component for React Native",
+  "version": "1.2.0",
+  "description": "Persian (Jalaali) Calendar Picker Component for React Native",
   "main": "PersianCalendarPicker.js",
   "scripts": {
     "test": "eslint ."
