@@ -1,15 +1,14 @@
 {
   "name": "react-native-persian-calendar-picker",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "description": "Persian (Jalaali) Calendar Picker Component for React Native",
-  "main": "PersianCalendarPicker.js",
+  "main": "src/PersianCalendarPicker.js",
   "scripts": {
     "test": "eslint ."
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/rghorbani/react-native-persian-calendar-picker"
-  },
+  "files": [
+    "src/"
+  ],
   "keyword": [
     "persian",
     "jalaali",
@@ -43,14 +42,14 @@
   "bugs": {
     "url": "https://github.com/rghorbani/react-native-persian-calendar-picker/issues"
   },
-  "maintainers": [
+  "contributors": [
     {
       "name": "rghorbani",
       "email": "r.ghorbani.f@gmail.com"
     }
   ],
-  "_npmUser": {
-    "name": "rghorbani",
-    "email": "r.ghorbani.f@gmail.com"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rghorbani/react-native-persian-calendar-picker"
   }
 }

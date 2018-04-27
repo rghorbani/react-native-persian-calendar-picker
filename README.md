@@ -1,5 +1,7 @@
-# react-native-calendar-picker
-Persian Calendar Picker Component for React Native
+# React Native Jalaali (Persian) Calendar
+[![NPM Version](https://img.shields.io/npm/v/react-native-persian-calendar-picker.svg?style=flat)](https://www.npmjs.com/package/react-native-persian-calendar-picker)
+
+This is a Jalaali (Persian) Calendar Picker Component for React Native
 
 
 <kbd>
@@ -7,11 +9,17 @@ Persian Calendar Picker Component for React Native
 </kbd>
 
 
-This is a Jalaali (Persian) Calendar Picker Component for React Native
+The package is both **Android** and **iOS** compatible.
 
-To use the calendar you just need to:
+## Installation
 
-	npm install react-native-persian-calendar-picker --save
+`$ yarn add react-native-general-calendars`
+
+or
+
+`$ npm install react-native-general-calendars --save`
+
+## Usage
 
 How to use it:
 ```js
@@ -78,12 +86,11 @@ const styles = StyleSheet.create({
 | textStyle | object | Style overall text. Change fontFamily, color, etc. |
 
 
-# To Do:
+## To Do:
 
-- Add swipe gestures
+- [ ] Add swipe gestures
 
-
-# Suggestions?
+## Suggestions?
 
 Drop an email to r.ghorbani.f@gmail.com
 
