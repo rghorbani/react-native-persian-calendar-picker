@@ -85,7 +85,7 @@ class Days extends React.Component {
       year = this.props.year,
       currentDay = 0,
       thisMonthFirstDay = jMoment(year + '/' + (month + 1) + '/1', 'jYYYY/jM/jD'),
-      dayOfWeek = (thisMonthFirstDay.weekday() - 1) % 7,
+      dayOfWeek = (thisMonthFirstDay.isoWeekday() + 1) % 7,
       slotsAccumulator = 0;
 
     for (let i = 0; i < MAX_ROWS; i++ ) { // Week rows
