@@ -9,111 +9,173 @@
 
 'use strict';
 
-const { Dimensions, StyleSheet } = require('react-native');
+const DEFAULT_SELECTED_BACKGROUND_COLOR = '#5ce600';
+const DEFAULT_SELECTED_TEXT_COLOR = '#000000';
+const DEFAULT_TODAY_BACKGROUD_COLOR = '#CCCCCC';
 
-const scale = Dimensions.get('window').width / 375;
+function makeStyles(scaler, backgroundColor, textColor, todayBackgroundColor) {
+  const SELECTED_BG_COLOR = backgroundColor ? backgroundColor : DEFAULT_SELECTED_BACKGROUND_COLOR;
+  const SELECTED_TEXT_COLOR = textColor ? textColor : DEFAULT_SELECTED_TEXT_COLOR;
+  const TODAY_BG_COLOR = todayBackgroundColor ? todayBackgroundColor : DEFAULT_TODAY_BACKGROUD_COLOR;
 
-function normalize(size: number): number {
-  return Math.round(scale * size);
+  return {
+    calendar: {
+      height: 320 * scaler,
+      marginTop: 10 * scaler,
+    },
+
+    dayButton: {
+      width: 30 * scaler,
+      height: 30 * scaler,
+      borderRadius: 30 * scaler,
+      alignSelf: 'center',
+      justifyContent: 'center',
+    },
+
+    dayLabel: {
+      fontSize: 14 * scaler,
+      color: '#000',
+      alignSelf: 'center',
+    },
+
+    selectedDayLabel: {
+      color: SELECTED_TEXT_COLOR,
+    },
+
+    dayLabelsWrapper: {
+      flexDirection: 'row',
+      borderBottomWidth: 1,
+      borderTopWidth: 1,
+      paddingTop: 10 * scaler,
+      paddingBottom: 10 * scaler,
+      alignSelf: 'center',
+      justifyContent: 'center',
+      backgroundColor: 'rgba(0, 0, 0, 0.0)',
+      borderColor: 'rgba(0, 0, 0, 0.2)',
+    },
+
+    daysWrapper: {
+      alignSelf: 'center',
+      justifyContent: 'center',
+    },
+
+    dayLabels: {
+      width: 50 * scaler,
+      fontSize: 12 * scaler,
+      color: '#000',
+      textAlign: 'center',
+    },
+
+    selectedDay: {
+      width: 30 * scaler,
+      height:30 * scaler,
+      borderRadius: 30 * scaler,
+      alignSelf: 'center',
+      justifyContent: 'center',
+    },
+
+    selectedDayBackground: {
+      backgroundColor: SELECTED_BG_COLOR,
+    },
+
+    selectedToday: {
+      width: 30 * scaler,
+      height:30 * scaler,
+      backgroundColor: TODAY_BG_COLOR,
+      borderRadius: 30 * scaler,
+      alignSelf: 'center',
+      justifyContent: 'center',
+    },
+
+    dayWrapper: {
+      alignItems: 'center',
+      justifyContent: 'center',
+      width: 50 * scaler,
+      height: 40 * scaler,
+      backgroundColor: 'rgba(0, 0, 0, 0.0)',
+    },
+
+    startDayWrapper: {
+      width: 50 * scaler,
+      height: 30 * scaler,
+      borderTopLeftRadius: 20 * scaler,
+      borderBottomLeftRadius: 20 * scaler,
+      backgroundColor: SELECTED_BG_COLOR,
+      alignSelf: 'center',
+      justifyContent: 'center',
+    },
+
+    endDayWrapper: {
+      width: 50 * scaler,
+      height: 30 * scaler,
+      borderTopRightRadius: 20 * scaler,
+      borderBottomRightRadius: 20 * scaler,
+      backgroundColor: SELECTED_BG_COLOR,
+      alignSelf: 'center',
+      justifyContent: 'center',
+    },
+
+    inRangeDay: {
+      width: 50 * scaler,
+      height: 30 * scaler,
+      backgroundColor: SELECTED_BG_COLOR,
+      alignSelf: 'center',
+      justifyContent: 'center',
+    },
+
+    monthLabel: {
+      fontSize: 16 * scaler,
+      color: '#000',
+      marginBottom: 10 * scaler,
+      width: 180 * scaler,
+      textAlign: 'center',
+    },
+
+    headerWrapper: {
+      alignItems: 'center',
+      flexDirection: 'row',
+      alignSelf: 'center',
+      padding: 5 * scaler,
+      paddingBottom: 3 * scaler,
+      backgroundColor: 'rgba(0, 0, 0, 0.0)',
+    },
+
+    monthSelector: {
+      marginBottom: 10 * scaler,
+      fontSize: 14 * scaler,
+      width: 80 * scaler,
+    },
+
+    prev: {
+      textAlign: 'left',
+    },
+
+    next: {
+      textAlign: 'right',
+    },
+
+    yearLabel: {
+      fontSize: 14 * scaler,
+      fontWeight: 'bold',
+      color: '#000',
+      textAlign: 'center',
+    },
+
+    weeks: {
+      flexDirection: 'column',
+    },
+
+    weekRow: {
+      flexDirection: 'row',
+    },
+
+    disabledText: {
+      fontSize: 14 * scaler,
+      color: '#BBBBBB',
+      alignSelf: 'center',
+      justifyContent: 'center',
+    }
+  };
 }
 
-const styles = StyleSheet.create({
-  calendar: {
-    height: normalize(320),
-    marginTop: normalize(10),
-  },
-  dayWrapper: {
-    width: normalize(50),
-    height: normalize(40),
-    backgroundColor: 'transparent',
-  },
-  dayButton: {
-    width: normalize(50),
-    height: normalize(40),
-    alignSelf: 'center',
-  },
-  dayButtonSelected: {
-    width: normalize(30),
-    height: normalize(30),
-    borderRadius: normalize(15),
-    backgroundColor: '#5ce600',
-    alignSelf: 'center',
-  },
-  dayLabel: {
-    fontSize: normalize(14),
-    color: '#000',
-    marginTop: normalize(6),
-    alignSelf: 'center',
-  },
-
-  dayLabelsWrapper: {
-    flexDirection: 'row',
-    marginBottom: normalize(10),
-    borderBottomWidth: 1,
-    borderTopWidth: 1,
-    paddingTop: normalize(10),
-    paddingBottom: normalize(10),
-    alignSelf: 'center',
-    backgroundColor: 'transparent',
-    borderColor: 'rgba(0, 0, 0, 0.2)',
-  },
-  daysWrapper: {
-    alignSelf: 'center',
-  },
-  dayLabels: {
-    width: normalize(50),
-    fontSize: normalize(10),
-    color: '#000',
-    textAlign: 'center',
-  },
-  selectedDay: {
-    width: normalize(60),
-    height:normalize(60),
-    backgroundColor: '#5ce600',
-    borderRadius: normalize(30),
-    alignSelf: 'center',
-  },
-  monthLabel: {
-    fontSize: normalize(16),
-    color: '#000',
-    width: normalize(180),
-    textAlign: 'center',
-  },
-  headerWrapper: {
-    alignItems: 'center',
-    flexDirection: 'row',
-    alignSelf: 'center',
-    marginBottom: normalize(10),
-    padding: normalize(5),
-    paddingBottom: normalize(3),
-    backgroundColor: 'transparent',
-  },
-  monthSelector: {
-    width: normalize(80),
-  },
-  prev: {
-    textAlign: 'right',
-    fontSize: normalize(14),
-  },
-  next: {
-    textAlign: 'left',
-    fontSize: normalize(14),
-  },
-  yearLabel: {
-    fontSize: normalize(14),
-    fontWeight: 'bold',
-    color: '#000',
-    textAlign: 'center',
-  },
-  weeks: {
-    flexDirection: 'column',
-  },
-  weekRow: {
-    flexDirection: 'row',
-  },
-  disabledTextColor: {
-    color: '#BBBBBB',
-  },
-});
-
-module.exports = styles;
+module.exports = makeStyles;

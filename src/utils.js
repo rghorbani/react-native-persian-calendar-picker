@@ -7,7 +7,11 @@
 
 'use strict';
 
+const jMoment = require('moment-jalaali');
+
 module.exports = {
+  START_DATE: 'START_DATE',
+  END_DATE: 'END_DATE',
   WEEKDAYS: [
     'شنبه',
     'یکشنبه',
@@ -33,4 +37,7 @@ module.exports = {
   ],
   MAX_ROWS: 7,
   MAX_COLUMNS: 7,
+  getDaysInMonth: function(month, year) {
+    return jMoment.jDaysInMonth(year, month);
+  },
 };
