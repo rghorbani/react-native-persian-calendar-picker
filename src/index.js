@@ -74,18 +74,18 @@ class PersianCalendarPicker extends React.Component {
   }
 
   onMonthChange(month) {
-    this.setState({month: month}, () => { this.onDateChange(); });
+    this.setState({month: month}, () => { this.onDateChange(true); });
   }
 
   getNextYear(){
-    this.setState({year: this.state.year + 1}, () => { this.onDateChange(); });
+    this.setState({year: this.state.year + 1}, () => { this.onDateChange(true); });
   }
 
   getPrevYear() {
-    this.setState({year: this.state.year - 1}, () => { this.onDateChange(); });
+    this.setState({year: this.state.year - 1}, () => { this.onDateChange(true); });
   }
 
-  onDateChange() {
+  onDateChange(noEmit) {
     let {
       day,
       month,
@@ -95,7 +95,10 @@ class PersianCalendarPicker extends React.Component {
     let date2 = new Date(date.year(), date.month(), date.date());
 
     this.setState({date: date});
-    this.props.onDateChange(date2);
+    // There's no need to force the parent component to change the date when we're changing the month / year
+    if (!noEmit) {
+      this.props.onDateChange(date2);
+    }
   }
 
   render() {
