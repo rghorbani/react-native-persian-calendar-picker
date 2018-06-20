@@ -27,6 +27,14 @@ const _swipeConfig = {
 };
 
 class PersianCalendarPicker extends React.Component {
+  static defaultProps = {
+    rtl: false,
+    initialDate: jMoment.utc(),
+    scaleFactor: 375,
+    enableSwipe: true,
+    onDateChange: () => console.log('onDateChange() not provided'),
+  };
+
   constructor(props) {
     super(props);
     this.state = {
@@ -45,13 +53,6 @@ class PersianCalendarPicker extends React.Component {
     this.handleOnPressDay = this.handleOnPressDay.bind(this);
     this.onSwipe = this.onSwipe.bind(this);
   }
-
-  static defaultProps = {
-    initialDate: jMoment.utc(),
-    scaleFactor: 375,
-    enableSwipe: true,
-    onDateChange: () => console.log('onDateChange() not provided'),
-  };
 
   componentDidUpdate(prevProps, prevState) {
     let newStyles = {};
@@ -89,6 +90,7 @@ class PersianCalendarPicker extends React.Component {
 
   updateScaledStyles(props) {
     const {
+      rtl,
       scaleFactor,
       selectedDayColor,
       selectedDayTextColor,
@@ -100,7 +102,7 @@ class PersianCalendarPicker extends React.Component {
     const containerWidth = width ? width : Dimensions.get('window').width;
     const containerHeight = height ? height : Dimensions.get('window').height;
     const initialScale = Math.min(containerWidth, containerHeight) / scaleFactor;
-    return {styles: makeStyles(initialScale, selectedDayColor, selectedDayTextColor, todayBackgroundColor)};
+    return {styles: makeStyles({rtl, initialScale, selectedDayColor, selectedDayTextColor, todayBackgroundColor})};
   }
 
   updateMonthYear(initialDate = this.props.initialDate) {

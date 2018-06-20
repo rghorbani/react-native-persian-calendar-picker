@@ -13,7 +13,7 @@ const DEFAULT_SELECTED_BACKGROUND_COLOR = '#5ce600';
 const DEFAULT_SELECTED_TEXT_COLOR = '#000000';
 const DEFAULT_TODAY_BACKGROUD_COLOR = '#CCCCCC';
 
-function makeStyles(scaler, backgroundColor, textColor, todayBackgroundColor) {
+function makeStyles({rtl, initialScale: scaler, backgroundColor, textColor, todayBackgroundColor}) {
   const SELECTED_BG_COLOR = backgroundColor ? backgroundColor : DEFAULT_SELECTED_BACKGROUND_COLOR;
   const SELECTED_TEXT_COLOR = textColor ? textColor : DEFAULT_SELECTED_TEXT_COLOR;
   const TODAY_BG_COLOR = todayBackgroundColor ? todayBackgroundColor : DEFAULT_TODAY_BACKGROUD_COLOR;
@@ -43,7 +43,7 @@ function makeStyles(scaler, backgroundColor, textColor, todayBackgroundColor) {
     },
 
     dayLabelsWrapper: {
-      flexDirection: 'row',
+      flexDirection: rtl ? 'row-reverse' : 'row',
       borderBottomWidth: 1,
       borderTopWidth: 1,
       paddingTop: 10 * scaler,
@@ -133,7 +133,7 @@ function makeStyles(scaler, backgroundColor, textColor, todayBackgroundColor) {
 
     headerWrapper: {
       alignItems: 'center',
-      flexDirection: 'row',
+      flexDirection: rtl ? 'row-reverse' : 'row',
       alignSelf: 'center',
       padding: 5 * scaler,
       paddingBottom: 3 * scaler,
@@ -147,11 +147,11 @@ function makeStyles(scaler, backgroundColor, textColor, todayBackgroundColor) {
     },
 
     prev: {
-      textAlign: 'left',
+      textAlign: rtl ? 'right' : 'left',
     },
 
     next: {
-      textAlign: 'right',
+      textAlign: rtl ? 'left' : 'right',
     },
 
     yearLabel: {
@@ -166,7 +166,7 @@ function makeStyles(scaler, backgroundColor, textColor, todayBackgroundColor) {
     },
 
     weekRow: {
-      flexDirection: 'row',
+      flexDirection: rtl ? 'row-reverse' : 'row',
     },
 
     disabledText: {
