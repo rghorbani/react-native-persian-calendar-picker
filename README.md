@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
 ## PersianCalendarPicker props
 | Prop | Type | Description |
 :------------ |:---------------| :-----|
-| **`rtl`** | `Boolean` | Optional. Force layout to be rtl. Default is `false` |
+| **`isRTL`** | `Boolean` | Optional. Force layout to be RTL. Default is `false` |
 | **`weekdays`** | `Array` | Optional. List of week days. Eg. `['Sat', 'Sun', ...]` Must be 7 days |
 | **`months`** | `Array` | Optional. List of months names. Eg. `['Farvardin', 'Ordibehesht', ...]` Must be 12 months |
 | **`allowRangeSelection`** | `Boolean` | Optional. Allow to select date ranges. Default is `false` |
