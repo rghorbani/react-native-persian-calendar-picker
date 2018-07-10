@@ -13,11 +13,11 @@ The package is both **Android** and **iOS** compatible.
 
 ## Installation
 
-`$ yarn add react-native-general-calendars`
+`$ yarn add react-native-persian-calendar-picker`
 
 or
 
-`$ npm install react-native-general-calendars --save`
+`$ npm install react-native-persian-calendar-picker --save`
 
 # Prerequisites
 
