@@ -102,7 +102,7 @@ class PersianCalendarPicker extends React.Component {
     const containerWidth = width ? width : Dimensions.get('window').width;
     const containerHeight = height ? height : Dimensions.get('window').height;
     const initialScale = Math.min(containerWidth, containerHeight) / scaleFactor;
-    return {styles: makeStyles({isRTL, initialScale, selectedDayColor, selectedDayTextColor, todayBackgroundColor})};
+    return {styles: makeStyles({isRTL, initialScale, backgroundColor: selectedDayColor, textColor: selectedDayTextColor, todayBackgroundColor})};
   }
 
   updateMonthYear(initialDate = this.props.initialDate) {
