@@ -1,5 +1,7 @@
 # React Native Jalaali (Persian) Calendar
 [![NPM Version](https://img.shields.io/npm/v/react-native-persian-calendar-picker.svg?style=flat)](https://www.npmjs.com/package/react-native-persian-calendar-picker)
+[![Build Status](https://travis-ci.org/rghorbani/react-native-persian-calendar-picker.svg?branch=master)](https://travis-ci.org/rghorbani/react-native-persian-calendar-picker)
+
 
 This is a Jalaali (Persian) Calendar Picker Component for React Native
 
