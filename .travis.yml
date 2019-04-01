@@ -8,13 +8,5 @@ cache:
 branches:
   only:
   - master
-env:
-  global:
-  - GH_USER_NAME: rghorbani
-  - GH_PROJECT_NAME: react-native-general-calendars
-  - GH_FULL_NAME: Reza Ghorbani Farid
-  - GH_EMAIL: r.ghorbani.f@gmail.com
-  - SITE_URL: https://rghorbani.ir
-  - GH_REF: github.com/rghorbani/react-native-persian-calendar-picker/
 install:
 - yarn
