@@ -23,7 +23,7 @@ const SWIPE_RIGHT = 'SWIPE_RIGHT';
 
 const _swipeConfig = {
   velocityThreshold: 0.3,
-  directionalOffsetThreshold: 80
+  directionalOffsetThreshold: 80,
 };
 
 class PersianCalendarPicker extends React.Component {
@@ -33,6 +33,7 @@ class PersianCalendarPicker extends React.Component {
     scaleFactor: 375,
     enableSwipe: true,
     onDateChange: () => console.log('onDateChange() not provided'),
+    enableDateChange: true,
   };
 
   constructor(props) {
@@ -52,39 +53,50 @@ class PersianCalendarPicker extends React.Component {
     this.handleOnPressNext = this.handleOnPressNext.bind(this);
     this.handleOnPressDay = this.handleOnPressDay.bind(this);
     this.onSwipe = this.onSwipe.bind(this);
+    this.resetSelections = this.resetSelections.bind(this);
   }
 
   componentDidUpdate(prevProps, prevState) {
     let newStyles = {};
     let doStateUpdate = false;
 
-    if (prevProps.width !== this.props.width ||
-      prevProps.height !== this.props.height)
-    {
+    if (
+      prevProps.width !== this.props.width ||
+      prevProps.height !== this.props.height
+    ) {
       newStyles = this.updateScaledStyles(this.props);
       doStateUpdate = true;
     }
 
     let newMonthYear = {};
-    if (!jMoment.utc(prevProps.initialDate).isSame(this.props.initialDate, 'day')) {
+    if (
+      !jMoment.utc(prevProps.initialDate).isSame(this.props.initialDate, 'day')
+    ) {
       newMonthYear = this.updateMonthYear(this.props.initialDate);
       doStateUpdate = true;
     }
 
     let selectedDateRanges = {};
-    if (this.props.selectedStartDate && !jMoment.utc(prevState.selectedStartDate).isSame(this.props.selectedStartDate, 'day') ||
-      this.props.selectedEndDate && !jMoment.utc(prevState.selectedEndDate).isSame(this.props.selectedEndDate, 'day')) {
+    if (
+      (this.props.selectedStartDate &&
+        !jMoment
+          .utc(prevState.selectedStartDate)
+          .isSame(this.props.selectedStartDate, 'day')) ||
+      (this.props.selectedEndDate &&
+        !jMoment
+          .utc(prevState.selectedEndDate)
+          .isSame(this.props.selectedEndDate, 'day'))
+    ) {
       const { selectedStartDate = null, selectedEndDate = null } = this.props;
       selectedDateRanges = {
         selectedStartDate,
-        selectedEndDate
+        selectedEndDate,
       };
       doStateUpdate = true;
     }
 
     if (doStateUpdate) {
-
-      this.setState({...newStyles, ...newMonthYear, ...selectedDateRanges});
+      this.setState({ ...newStyles, ...newMonthYear, ...selectedDateRanges });
     }
   }
 
@@ -95,14 +107,24 @@ class PersianCalendarPicker extends React.Component {
       selectedDayColor,
       selectedDayTextColor,
       todayBackgroundColor,
-      width, height,
+      width,
+      height,
     } = props;
 
     // The styles in makeStyles are intially scaled to this width
     const containerWidth = width ? width : Dimensions.get('window').width;
     const containerHeight = height ? height : Dimensions.get('window').height;
-    const initialScale = Math.min(containerWidth, containerHeight) / scaleFactor;
-    return {styles: makeStyles({isRTL, initialScale, backgroundColor: selectedDayColor, textColor: selectedDayTextColor, todayBackgroundColor})};
+    const initialScale =
+      Math.min(containerWidth, containerHeight) / scaleFactor;
+    return {
+      styles: makeStyles({
+        isRTL,
+        initialScale,
+        backgroundColor: selectedDayColor,
+        textColor: selectedDayTextColor,
+        todayBackgroundColor,
+      }),
+    };
   }
 
   updateMonthYear(initialDate = this.props.initialDate) {
@@ -120,17 +142,24 @@ class PersianCalendarPicker extends React.Component {
       selectedEndDate,
     } = this.state;
 
-    const {
-      allowRangeSelection,
-      onDateChange,
-    } = this.props;
+    const { allowRangeSelection, onDateChange, enableDateChange } = this.props;
 
-    const date = jMoment.utc().jYear(currentYear).jMonth(currentMonth).jDate(day);
+    if (!enableDateChange) {
+      return;
+    }
 
-    if (allowRangeSelection &&
+    const date = jMoment
+      .utc()
+      .jYear(currentYear)
+      .jMonth(currentMonth)
+      .jDate(day);
+
+    if (
+      allowRangeSelection &&
       selectedStartDate &&
       date.isSameOrAfter(selectedStartDate) &&
-      !selectedEndDate) {
+      !selectedEndDate
+    ) {
       this.setState({
         selectedEndDate: date,
       });
@@ -153,7 +182,7 @@ class PersianCalendarPicker extends React.Component {
     // so we have to go back to previous year and set the current month to December
     if (previousMonth < 0) {
       previousMonth = 11;
-      currentYear -= 1;  // decrement year
+      currentYear -= 1; // decrement year
       this.setState({
         currentMonth: parseInt(previousMonth), // setting month to December
         currentYear: parseInt(currentYear),
@@ -164,7 +193,14 @@ class PersianCalendarPicker extends React.Component {
         currentYear: parseInt(currentYear),
       });
     }
-    this.props.onMonthChange && this.props.onMonthChange(jMoment.utc().jYear(currentYear).jMonth(currentMonth).jDate(1));
+    this.props.onMonthChange &&
+      this.props.onMonthChange(
+        jMoment
+          .utc()
+          .jYear(currentYear)
+          .jMonth(currentMonth)
+          .jDate(1),
+      );
   }
 
   handleOnPressNext() {
@@ -174,7 +210,7 @@ class PersianCalendarPicker extends React.Component {
     // so we have to go forward to the next year and set the current month to January
     if (nextMonth > 11) {
       nextMonth = 0;
-      currentYear += 1;  // increment year
+      currentYear += 1; // increment year
       this.setState({
         currentMonth: parseInt(nextMonth), // setting month to January
         currentYear: parseInt(currentYear),
@@ -185,10 +221,21 @@ class PersianCalendarPicker extends React.Component {
         currentYear: parseInt(currentYear),
       });
     }
-    this.props.onMonthChange && this.props.onMonthChange(jMoment.utc().jYear(currentYear).jMonth(currentMonth).jDate(1));
+    this.props.onMonthChange &&
+      this.props.onMonthChange(
+        jMoment
+          .utc()
+          .jYear(currentYear)
+          .jMonth(currentMonth)
+          .jDate(1),
+      );
   }
 
   onSwipe(gestureName) {
+    if (typeof this.props.onSwipe === 'function') {
+      this.props.onSwipe(gestureName);
+      return;
+    }
     switch (gestureName) {
       case SWIPE_LEFT:
         this.handleOnPressNext();
@@ -236,13 +283,14 @@ class PersianCalendarPicker extends React.Component {
       maxRangeDuration,
       swipeConfig,
       customDatesStyles,
+      enableDateChange,
     } = this.props;
 
     let disabledDatesTime = [];
 
     // Convert input date into timestamp
     if (disabledDates && Array.isArray(disabledDates)) {
-      disabledDates.map((date) => {
+      disabledDates.map(date => {
         let thisDate = jMoment.utc(date);
         // thisDate.set({'hour': 0, 'minute': 0, 'second': 0, 'millisecond': 0});
         disabledDatesTime.push(thisDate.valueOf());
@@ -253,10 +301,13 @@ class PersianCalendarPicker extends React.Component {
 
     if (allowRangeSelection && minRangeDuration) {
       if (Array.isArray(minRangeDuration)) {
-        minRangeDuration.map((minRangeDuration) => {
+        minRangeDuration.map(minRangeDuration => {
           let thisDate = jMoment.utc(minRangeDuration.date);
           // thisDate.set({'hour': 0, 'minute': 0, 'second': 0, 'millisecond': 0});
-          minRangeDurationTime.push({date: thisDate.valueOf(), minDuration: minRangeDuration.minDuration});
+          minRangeDurationTime.push({
+            date: thisDate.valueOf(),
+            minDuration: minRangeDuration.minDuration,
+          });
         });
       } else {
         minRangeDurationTime = minRangeDuration;
@@ -267,10 +318,13 @@ class PersianCalendarPicker extends React.Component {
 
     if (allowRangeSelection && maxRangeDuration) {
       if (Array.isArray(maxRangeDuration)) {
-        maxRangeDuration.map((maxRangeDuration) => {
+        maxRangeDuration.map(maxRangeDuration => {
           let thisDate = jMoment.utc(maxRangeDuration.date);
           // thisDate.set({'hour': 0, 'minute': 0, 'second': 0, 'millisecond': 0});
-          maxRangeDurationTime.push({date: thisDate.valueOf(), maxDuration: maxRangeDuration.maxDuration});
+          maxRangeDurationTime.push({
+            date: thisDate.valueOf(),
+            maxDuration: maxRangeDuration.maxDuration,
+          });
         });
       } else {
         maxRangeDurationTime = maxRangeDuration;
@@ -280,7 +334,7 @@ class PersianCalendarPicker extends React.Component {
     return (
       <Swiper
         onSwipe={direction => this.props.enableSwipe && this.onSwipe(direction)}
-        config={{..._swipeConfig, ...swipeConfig}}
+        config={{ ..._swipeConfig, ...swipeConfig }}
       >
         <View syles={styles.calendar}>
           <HeaderControls
@@ -302,6 +356,7 @@ class PersianCalendarPicker extends React.Component {
             textStyle={textStyle}
           />
           <DaysGridView
+            enableDateChange={enableDateChange}
             month={currentMonth}
             year={currentYear}
             styles={styles}
@@ -311,7 +366,9 @@ class PersianCalendarPicker extends React.Component {
             maxRangeDuration={maxRangeDurationTime}
             startFromMonday={startFromMonday}
             allowRangeSelection={allowRangeSelection}
-            selectedStartDate={selectedStartDate && jMoment.utc(selectedStartDate)}
+            selectedStartDate={
+              selectedStartDate && jMoment.utc(selectedStartDate)
+            }
             selectedEndDate={selectedEndDate && jMoment.utc(selectedEndDate)}
             minDate={minDate && jMoment.utc(minDate)}
             maxDate={maxDate && jMoment.utc(maxDate)}

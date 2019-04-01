@@ -44,7 +44,7 @@ function HeaderControls(props) {
       />
       <View>
         <Text style={[styles.monthLabel, textStyle]}>
-           {month} {year}
+          {month} {year}
         </Text>
       </View>
       <Controls

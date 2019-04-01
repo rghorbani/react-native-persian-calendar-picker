@@ -1,0 +1,9 @@
+.DS_Store
+.idea
+src/**/*.spec.js
+demo/
+example/
+npm-debug.log
+.travis.yml
+package-lock.json
+yarn.lock

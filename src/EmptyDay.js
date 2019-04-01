@@ -16,12 +16,8 @@ function EmptyDay(props) {
   return (
     <View style={styles.dayWrapper}>
       <View style={styles.dayButton}>
-        <TouchableOpacity
-          style={styles.dayButton}
-        >
-          <Text style={styles.dayLabel}>
-            {''}
-          </Text>
+        <TouchableOpacity style={styles.dayButton}>
+          <Text style={styles.dayLabel}>{''}</Text>
         </TouchableOpacity>
       </View>
     </View>

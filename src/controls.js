@@ -13,12 +13,8 @@ const { Text, TouchableOpacity } = require('react-native');
 
 function Controls({ styles, textStyles, label, onPressControl }) {
   return (
-    <TouchableOpacity
-      onPress={() => onPressControl()}
-    >
-      <Text style={[styles, textStyles]}>
-        { label }
-      </Text>
+    <TouchableOpacity onPress={() => onPressControl()}>
+      <Text style={[styles, textStyles]}>{label}</Text>
     </TouchableOpacity>
   );
 }

@@ -21,14 +21,13 @@ function Weekdays(props) {
 
   return (
     <View style={styles.dayLabelsWrapper}>
-      { wd.map((day, key) => {
-          return (
-            <Text key={key} style={[styles.dayLabels, textStyle]}>
-              {day}
-            </Text>
-          );
-        })
-      }
+      {wd.map((day, key) => {
+        return (
+          <Text key={key} style={[styles.dayLabels, textStyle]}>
+            {day}
+          </Text>
+        );
+      })}
     </View>
   );
 }

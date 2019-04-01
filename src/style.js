@@ -13,10 +13,22 @@ const DEFAULT_SELECTED_BACKGROUND_COLOR = '#5ce600';
 const DEFAULT_SELECTED_TEXT_COLOR = '#000000';
 const DEFAULT_TODAY_BACKGROUD_COLOR = '#CCCCCC';
 
-function makeStyles({isRTL, initialScale: scaler, backgroundColor, textColor, todayBackgroundColor}) {
-  const SELECTED_BG_COLOR = backgroundColor ? backgroundColor : DEFAULT_SELECTED_BACKGROUND_COLOR;
-  const SELECTED_TEXT_COLOR = textColor ? textColor : DEFAULT_SELECTED_TEXT_COLOR;
-  const TODAY_BG_COLOR = todayBackgroundColor ? todayBackgroundColor : DEFAULT_TODAY_BACKGROUD_COLOR;
+function makeStyles({
+  isRTL,
+  initialScale: scaler,
+  backgroundColor,
+  textColor,
+  todayBackgroundColor,
+}) {
+  const SELECTED_BG_COLOR = backgroundColor
+    ? backgroundColor
+    : DEFAULT_SELECTED_BACKGROUND_COLOR;
+  const SELECTED_TEXT_COLOR = textColor
+    ? textColor
+    : DEFAULT_SELECTED_TEXT_COLOR;
+  const TODAY_BG_COLOR = todayBackgroundColor
+    ? todayBackgroundColor
+    : DEFAULT_TODAY_BACKGROUD_COLOR;
 
   return {
     calendar: {
@@ -68,7 +80,7 @@ function makeStyles({isRTL, initialScale: scaler, backgroundColor, textColor, to
 
     selectedDay: {
       width: 30 * scaler,
-      height:30 * scaler,
+      height: 30 * scaler,
       borderRadius: 30 * scaler,
       alignSelf: 'center',
       justifyContent: 'center',
@@ -80,7 +92,7 @@ function makeStyles({isRTL, initialScale: scaler, backgroundColor, textColor, to
 
     selectedToday: {
       width: 30 * scaler,
-      height:30 * scaler,
+      height: 30 * scaler,
       backgroundColor: TODAY_BG_COLOR,
       borderRadius: 30 * scaler,
       alignSelf: 'center',
@@ -174,7 +186,7 @@ function makeStyles({isRTL, initialScale: scaler, backgroundColor, textColor, to
       color: '#BBBBBB',
       alignSelf: 'center',
       justifyContent: 'center',
-    }
+    },
   };
 }
 
