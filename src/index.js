@@ -238,10 +238,12 @@ class PersianCalendarPicker extends React.Component {
     }
     switch (gestureName) {
       case SWIPE_LEFT:
-        this.handleOnPressNext();
+        if (this.props.isRTL) this.handleOnPressPrevious();
+        else this.handleOnPressNext();
         break;
       case SWIPE_RIGHT:
-        this.handleOnPressPrevious();
+        if (this.props.isRTL) this.handleOnPressNext();
+        else this.handleOnPressPrevious();
         break;
     }
   }
