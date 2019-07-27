@@ -42,7 +42,7 @@ function Day(props) {
     .jYear(year)
     .jMonth(month)
     .jDate(day);
-  const today = jMoment.utc();
+  const today = jMoment();
 
   let dateOutOfRange;
   let daySelectedStyle = styles.dayButton; // may be overridden depending on state
