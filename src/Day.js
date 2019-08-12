@@ -232,7 +232,7 @@ function Day(props) {
       `${year}/${Number(month) + 1}/${day}`,
       'jYYYY/jM/jD',
     )
-      .events()x
+      .events()
       .find(event => event.isHoliday);
     const holidayStyle = isHoliday ? { backgroundColor: 'red' } : {};
 
