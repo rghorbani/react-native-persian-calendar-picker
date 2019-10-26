@@ -11,7 +11,15 @@
 
 const DEFAULT_SELECTED_BACKGROUND_COLOR = '#5ce600';
 const DEFAULT_SELECTED_TEXT_COLOR = '#000000';
-const DEFAULT_TODAY_BACKGROUD_COLOR = '#CCCCCC';
+const DEFAULT_TODAY_BACKGROUND_COLOR = '#CCCCCC';
+
+function getBorderRadiusByShape(scaler, dayShape) {
+  if (dayShape === 'square') {
+    return 0;
+  } else {
+    return 30 * scaler;
+  }
+}
 
 function makeStyles({
   isRTL,
@@ -19,6 +27,7 @@ function makeStyles({
   backgroundColor,
   textColor,
   todayBackgroundColor,
+  dayShape,
 }) {
   const SELECTED_BG_COLOR = backgroundColor
     ? backgroundColor
@@ -28,7 +37,7 @@ function makeStyles({
     : DEFAULT_SELECTED_TEXT_COLOR;
   const TODAY_BG_COLOR = todayBackgroundColor
     ? todayBackgroundColor
-    : DEFAULT_TODAY_BACKGROUD_COLOR;
+    : DEFAULT_TODAY_BACKGROUND_COLOR;
 
   return {
     calendar: {
@@ -39,7 +48,7 @@ function makeStyles({
     dayButton: {
       width: 30 * scaler,
       height: 30 * scaler,
-      borderRadius: 30 * scaler,
+      borderRadius: getBorderRadiusByShape(scaler, dayShape),
       alignSelf: 'center',
       justifyContent: 'center',
     },
@@ -81,7 +90,7 @@ function makeStyles({
     selectedDay: {
       width: 30 * scaler,
       height: 30 * scaler,
-      borderRadius: 30 * scaler,
+      borderRadius: getBorderRadiusByShape(scaler, dayShape),
       alignSelf: 'center',
       justifyContent: 'center',
     },
@@ -94,7 +103,7 @@ function makeStyles({
       width: 30 * scaler,
       height: 30 * scaler,
       backgroundColor: TODAY_BG_COLOR,
-      borderRadius: 30 * scaler,
+      borderRadius: getBorderRadiusByShape(scaler, dayShape),
       alignSelf: 'center',
       justifyContent: 'center',
     },
@@ -110,8 +119,10 @@ function makeStyles({
     startDayWrapper: {
       width: 50 * scaler,
       height: 30 * scaler,
-      borderTopLeftRadius: 20 * scaler,
-      borderBottomLeftRadius: 20 * scaler,
+      borderTopLeftRadius: isRTL ? 0 : 20 * scaler,
+      borderBottomLeftRadius: isRTL ? 0 : 20 * scaler,
+      borderTopRightRadius: isRTL ? 20 * scaler : 0,
+      borderBottomRightRadius: isRTL ? 20 * scaler : 0,
       backgroundColor: SELECTED_BG_COLOR,
       alignSelf: 'center',
       justifyContent: 'center',
@@ -120,8 +131,10 @@ function makeStyles({
     endDayWrapper: {
       width: 50 * scaler,
       height: 30 * scaler,
-      borderTopRightRadius: 20 * scaler,
-      borderBottomRightRadius: 20 * scaler,
+      borderTopRightRadius: isRTL ? 0 : 20 * scaler,
+      borderBottomRightRadius: isRTL ? 0 : 20 * scaler,
+      borderTopLeftRadius: isRTL ? 20 * scaler : 0,
+      borderBottomLeftRadius: isRTL ? 20 * scaler : 0,
       backgroundColor: SELECTED_BG_COLOR,
       alignSelf: 'center',
       justifyContent: 'center',

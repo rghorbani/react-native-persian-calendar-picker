@@ -9,25 +9,19 @@
 
 const React = require('react');
 const PropTypes = require('prop-types');
-const { Text, TouchableOpacity, View } = require('react-native');
+const { View } = require('react-native');
 
 function EmptyDay(props) {
   const { styles } = props;
   return (
     <View style={styles.dayWrapper}>
-      <View style={styles.dayButton}>
-        <TouchableOpacity style={styles.dayButton}>
-          <Text style={styles.dayLabel}>{''}</Text>
-        </TouchableOpacity>
-      </View>
+      <View style={styles.dayButton} />
     </View>
   );
 }
 
 EmptyDay.propTypes = {
   styles: PropTypes.shape({}),
-  day: PropTypes.number,
-  onPressDay: PropTypes.func,
 };
 
 module.exports = EmptyDay;

@@ -29,13 +29,13 @@ CalendarPicker requires Moment JS.  Date props may be anything parseable by Mome
 
 How to use it:
 ```js
-const React = require('react');
-const {
+import React from 'react';
+import {
   StyleSheet,
   Text,
   View,
-} = require('react-native');
-const PersianCalendarPicker = require('react-native-persian-calendar-picker');
+} from 'react-native';
+import PersianCalendarPicker from 'react-native-persian-calendar-picker';
 
 class PersianCalendarPickerExample extends React.Component {
   constructor(props) {
@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
 | **`selectedRangeStartStyle`** | `ViewStyle` | Optional. Style for range selected start day. |
 | **`selectedRangeEndStyle`** | `ViewStyle` | Optional. Style for range selected end day. |
 | **`selectedRangeStyle`** | `ViewStyle` | Optional. Style for all days in range selection. |
-| **`disabledDates`** | `Array` | Optional. Specifies dates that cannot be selected. Array of Dates. |
+| **`disabledDates`** | `Array` or `Function` | Optional. Specifies dates that cannot be selected. Array of Dates, or a function that returns true for a given Moment date (apologies for the inverted logic). |
 | **`selectedStartDate`** | `Date` | Optional. Specifies a selected Start Date. |
 | **`selectedEndDate`** | `Date` | Optional. Specifies a selected End Date. |
 | **`minRangeDuration`** | `Number or Array` | Optional. Specifies a minimum range duration when using allowRangeSelection. Can either pass a number to be used for all dates or an Array of objects if the minimum range duration depends on the date `{date: Moment-parsable date, minDuration: Number` |
@@ -115,6 +115,8 @@ const styles = StyleSheet.create({
 | **`onDateChange`** | `Function` | Optional. Callback when a date is selected. Returns Moment `date` as first parameter.|
 | **`onMonthChange`** | `Function` | Optional. Callback when Previous / Next month is pressed. Returns Moment `date` as first parameter.|
 | **`onSwipe`** | `Function` | Optional. Callback when swipe event is triggered. Returns swipe direction as first parameter.|
+| **`dayShape`** | `String` | Optional. Shape of the Day component. Default is `circle`. Available options are `circle` and `square`.|
+| **`headingLevel`** | `Number` | Optional. Sets the aria-level for the calendar title heading when on Web. Default is `1`.|
 
 # Styles
 Some styles will overwrite some won't. For instance:

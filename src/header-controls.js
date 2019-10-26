@@ -9,7 +9,7 @@
 
 const React = require('react');
 const PropTypes = require('prop-types');
-const { Text, View } = require('react-native');
+const { Platform, Text, View } = require('react-native');
 
 const Utils = require('./utils');
 const Controls = require('./controls');
@@ -25,6 +25,7 @@ function HeaderControls(props) {
     previousTitle,
     nextTitle,
     textStyle,
+    headingLevel,
   } = props;
   const MONTHS = months ? months : Utils.MONTHS; // English Month Array
   // getMonth() call below will return the month number, we will use it as the
@@ -34,6 +35,11 @@ function HeaderControls(props) {
   const month = MONTHS[currentMonth];
   const year = currentYear;
 
+  const accessibilityProps = { accessibilityRole: 'header' };
+  if (Platform.OS === 'web') {
+    accessibilityProps['aria-level'] = headingLevel;
+  }
+
   return (
     <View style={styles.headerWrapper}>
       <Controls
@@ -42,11 +48,13 @@ function HeaderControls(props) {
         styles={[styles.monthSelector, styles.prev]}
         textStyles={textStyle}
       />
+
       <View>
-        <Text style={[styles.monthLabel, textStyle]}>
+        <Text style={[styles.monthLabel, textStyle]} {...accessibilityProps}>
           {month} {year}
         </Text>
       </View>
+
       <Controls
         label={next}
         onPressControl={onPressNext}

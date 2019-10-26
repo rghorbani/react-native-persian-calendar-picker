@@ -34,6 +34,7 @@ class PersianCalendarPicker extends React.Component {
     enableSwipe: true,
     onDateChange: () => console.log('onDateChange() not provided'),
     enableDateChange: true,
+    headingLevel: 1,
   };
 
   constructor(props) {
@@ -109,6 +110,7 @@ class PersianCalendarPicker extends React.Component {
       todayBackgroundColor,
       width,
       height,
+      dayShape,
     } = props;
 
     // The styles in makeStyles are intially scaled to this width
@@ -116,6 +118,7 @@ class PersianCalendarPicker extends React.Component {
     const containerHeight = height ? height : Dimensions.get('window').height;
     const initialScale =
       Math.min(containerWidth, containerHeight) / scaleFactor;
+
     return {
       styles: makeStyles({
         isRTL,
@@ -123,6 +126,7 @@ class PersianCalendarPicker extends React.Component {
         backgroundColor: selectedDayColor,
         textColor: selectedDayTextColor,
         todayBackgroundColor,
+        dayShape,
       }),
     };
   }
@@ -286,17 +290,23 @@ class PersianCalendarPicker extends React.Component {
       swipeConfig,
       customDatesStyles,
       enableDateChange,
+      headingLevel,
     } = this.props;
 
-    let disabledDatesTime = [];
+    let _disabledDates = [];
 
     // Convert input date into timestamp
-    if (disabledDates && Array.isArray(disabledDates)) {
-      disabledDates.map(date => {
-        let thisDate = jMoment.utc(date);
-        // thisDate.set({'hour': 0, 'minute': 0, 'second': 0, 'millisecond': 0});
-        disabledDatesTime.push(thisDate.valueOf());
-      });
+    if (disabledDates) {
+      if (Array.isArray(disabledDates)) {
+        // Convert input date into timestamp
+        disabledDates.map(date => {
+          let thisDate = jMoment(date);
+          thisDate.set({ hour: 0, minute: 0, second: 0, millisecond: 0 });
+          _disabledDates.push(thisDate.valueOf());
+        });
+      } else if (disabledDates instanceof Function) {
+        _disabledDates = disabledDates;
+      }
     }
 
     let minRangeDurationTime = [];
@@ -350,20 +360,23 @@ class PersianCalendarPicker extends React.Component {
             previousTitle={previousTitle}
             nextTitle={nextTitle}
             textStyle={textStyle}
+            headingLevel={headingLevel}
           />
+
           <Weekdays
             styles={styles}
             startFromMonday={startFromMonday}
             weekdays={weekdays}
             textStyle={textStyle}
           />
+
           <DaysGridView
             enableDateChange={enableDateChange}
             month={currentMonth}
             year={currentYear}
             styles={styles}
             onPressDay={this.handleOnPressDay}
-            disabledDates={disabledDatesTime}
+            disabledDates={_disabledDates}
             minRangeDuration={minRangeDurationTime}
             maxRangeDuration={maxRangeDurationTime}
             startFromMonday={startFromMonday}
