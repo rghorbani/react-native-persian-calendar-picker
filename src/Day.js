@@ -11,6 +11,7 @@ const React = require('react');
 const PropTypes = require('prop-types');
 const jMoment = require('moment-jalaali');
 const { Text, TouchableOpacity, View } = require('react-native');
+const pholiday = require('pholiday');
 
 function Day(props) {
   const {
@@ -234,11 +235,24 @@ function Day(props) {
       }
     }
 
+    const isHoliday = pholiday(
+      `${year}/${Number(month) + 1}/${day}`,
+      'jYYYY/jM/jD',
+    )
+      .events()
+      .find(event => event.isHoliday);
+    const holidayStyle = isHoliday ? { backgroundColor: 'red' } : {};
+
     return (
       <View style={[styles.dayWrapper, customContainerStyle]}>
         <TouchableOpacity
           disabled={!enableDateChange}
-          style={[customDateStyle, daySelectedStyle, propSelectedDayStyle]}
+          style={[
+            holidayStyle,
+            customDateStyle,
+            daySelectedStyle,
+            propSelectedDayStyle,
+          ]}
           onPress={() => onPressDay(day)}
         >
           <Text
