@@ -43,6 +43,12 @@ function HeaderControls(props) {
   return (
     <View style={styles.headerWrapper}>
       <Controls
+        label={">"}
+        onPressControl={()=>console.log("Previous Year")}
+        styles={[styles.monthSelector,styles.prev]}
+        textStyles={textStyle}
+        />
+      <Controls
         label={previous}
         onPressControl={onPressPrevious}
         styles={[styles.monthSelector, styles.prev]}
@@ -54,11 +60,16 @@ function HeaderControls(props) {
           {month} {year}
         </Text>
       </View>
-
       <Controls
         label={next}
         onPressControl={onPressNext}
         styles={[styles.monthSelector, styles.next]}
+        textStyles={textStyle}
+      />
+      <Controls
+        label={"<"}
+        onPressControl={()=>console.log("Next Year")}
+        styles={[styles.monthSelector,styles.next]}
         textStyles={textStyle}
       />
     </View>

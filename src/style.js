@@ -152,12 +152,12 @@ function makeStyles({
       fontSize: 16 * scaler,
       color: '#000',
       marginBottom: 10 * scaler,
-      width: 180 * scaler,
       textAlign: 'center',
     },
 
     headerWrapper: {
       alignItems: 'center',
+      justifyContent:"space-around",
       flexDirection: isRTL ? 'row-reverse' : 'row',
       alignSelf: 'center',
       padding: 5 * scaler,
