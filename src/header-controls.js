@@ -19,19 +19,26 @@ function HeaderControls(props) {
     styles,
     currentMonth,
     currentYear,
-    onPressNext,
-    onPressPrevious,
+    onPressNextMonth,
+    onPressPreviousMonth,
+    onPressNextYear,
+    onPressPreviousYear,
     months,
-    previousTitle,
-    nextTitle,
+    previousMonthTitle,
+    nextMonthTitle,
+    nextYearTitle,
+    previousYearTitle,
     textStyle,
     headingLevel,
+    isRTL,
   } = props;
   const MONTHS = months ? months : Utils.MONTHS; // English Month Array
   // getMonth() call below will return the month number, we will use it as the
   // index for month array in english
-  const previous = previousTitle ? previousTitle : 'قبلی';
-  const next = nextTitle ? nextTitle : 'بعدی';
+  const previousMonth = previousMonthTitle ? previousMonthTitle : (isRTL?'>':'<');
+  const nextMonth = nextMonthTitle ? nextMonthTitle : (isRTL?'<':'>');
+  const nextYear = nextYearTitle?nextYearTitle: (isRTL?'<<':'>>');
+  const previousYear = previousYearTitle?previousYearTitle: (isRTL?'>>':'<<');
   const month = MONTHS[currentMonth];
   const year = currentYear;
 
@@ -43,14 +50,14 @@ function HeaderControls(props) {
   return (
     <View style={styles.headerWrapper}>
       <Controls
-        label={">"}
-        onPressControl={()=>console.log("Previous Year")}
+        label={previousYear}
+        onPressControl={onPressPreviousYear}
         styles={[styles.monthSelector,styles.prev]}
         textStyles={textStyle}
         />
       <Controls
-        label={previous}
-        onPressControl={onPressPrevious}
+        label={previousMonth}
+        onPressControl={onPressPreviousMonth}
         styles={[styles.monthSelector, styles.prev]}
         textStyles={textStyle}
       />
@@ -61,14 +68,14 @@ function HeaderControls(props) {
         </Text>
       </View>
       <Controls
-        label={next}
-        onPressControl={onPressNext}
+        label={nextMonth}
+        onPressControl={onPressNextMonth}
         styles={[styles.monthSelector, styles.next]}
         textStyles={textStyle}
       />
       <Controls
-        label={"<"}
-        onPressControl={()=>console.log("Next Year")}
+        label={nextYear}
+        onPressControl={onPressNextYear}
         styles={[styles.monthSelector,styles.next]}
         textStyles={textStyle}
       />
@@ -79,8 +86,10 @@ function HeaderControls(props) {
 HeaderControls.propTypes = {
   currentMonth: PropTypes.number,
   currentYear: PropTypes.number,
-  onPressNext: PropTypes.func,
-  onPressPrevious: PropTypes.func,
+  onPressNextMonth: PropTypes.func,
+  onPressPreviousMonth: PropTypes.func,
+  onPressNextYear: PropTypes.func,
+  onPressPreviousYear: PropTypes.func,
 };
 
 module.exports = HeaderControls;
