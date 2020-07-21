@@ -50,8 +50,10 @@ class PersianCalendarPicker extends React.Component {
     };
     this.updateScaledStyles = this.updateScaledStyles.bind(this);
     this.updateMonthYear = this.updateMonthYear.bind(this);
-    this.handleOnPressPrevious = this.handleOnPressPrevious.bind(this);
-    this.handleOnPressNext = this.handleOnPressNext.bind(this);
+    this.handleOnPressPerviousMonth = this.handleOnPressPerviousMonth.bind(this);
+    this.handleOnPressNextMonth = this.handleOnPressNextMonth.bind(this);
+    this.handleOnPressPreviousYear = this.handleOnPressPreviousYear.bind(this);
+    this.handleOnPressNextYear = this.handleOnPressNextYear.bind(this);
     this.handleOnPressDay = this.handleOnPressDay.bind(this);
     this.onSwipe = this.onSwipe.bind(this);
     this.resetSelections = this.resetSelections.bind(this);
@@ -179,7 +181,7 @@ class PersianCalendarPicker extends React.Component {
     }
   }
 
-  handleOnPressPrevious() {
+  handleOnPressPerviousMonth() {
     let { currentMonth, currentYear } = this.state;
     let previousMonth = currentMonth - 1;
     // if previousMonth is negative it means the current month is January,
@@ -207,7 +209,7 @@ class PersianCalendarPicker extends React.Component {
       );
   }
 
-  handleOnPressNext() {
+  handleOnPressNextMonth() {
     let { currentMonth, currentYear } = this.state;
     let nextMonth = currentMonth + 1;
     // if nextMonth is greater than 11 it means the current month is December,
@@ -234,7 +236,12 @@ class PersianCalendarPicker extends React.Component {
           .jDate(1),
       );
   }
-
+  handleOnPressNextYear() {
+    this.setState(_state=>({currentYear:_state.currentYear+1}))
+  }
+  handleOnPressPreviousYear(){
+    this.setState(_state=>({currentYear:_state.currentYear-1}))
+  }
   onSwipe(gestureName) {
     if (typeof this.props.onSwipe === 'function') {
       this.props.onSwipe(gestureName);
@@ -242,12 +249,12 @@ class PersianCalendarPicker extends React.Component {
     }
     switch (gestureName) {
       case SWIPE_LEFT:
-        if (this.props.isRTL) this.handleOnPressPrevious();
-        else this.handleOnPressNext();
+        if (this.props.isRTL) this.handleOnPressPerviousMonth();
+        else this.handleOnPressNextMonth();
         break;
       case SWIPE_RIGHT:
-        if (this.props.isRTL) this.handleOnPressNext();
-        else this.handleOnPressPrevious();
+        if (this.props.isRTL) this.handleOnPressNextMonth();
+        else this.handleOnPressPerviousMonth();
         break;
     }
   }
@@ -276,8 +283,10 @@ class PersianCalendarPicker extends React.Component {
       maxDate,
       weekdays,
       months,
-      previousTitle,
-      nextTitle,
+      previousMonthTitle,
+      nextMonthTitle,
+      previousYearTitle,
+      nextYearTitle,
       textStyle,
       todayTextStyle,
       selectedDayStyle,
@@ -291,6 +300,7 @@ class PersianCalendarPicker extends React.Component {
       customDatesStyles,
       enableDateChange,
       headingLevel,
+      isRTL,
     } = this.props;
 
     let _disabledDates = [];
@@ -354,13 +364,18 @@ class PersianCalendarPicker extends React.Component {
             currentMonth={currentMonth}
             currentYear={currentYear}
             initialDate={jMoment.utc(initialDate)}
-            onPressPrevious={this.handleOnPressPrevious}
-            onPressNext={this.handleOnPressNext}
+            onPressPreviousMonth={this.handleOnPressPerviousMonth}
+            onPressNextMonth={this.handleOnPressNextMonth}
+            onPressPreviousYear={this.handleOnPressPreviousYear}
+            onPressNextYear={this.handleOnPressNextYear}
             months={months}
-            previousTitle={previousTitle}
-            nextTitle={nextTitle}
+            previousMonthTitle={previousMonthTitle}
+            nextMonthTitle={nextMonthTitle}
+            previousYearTitle={previousYearTitle}
+            nextYearTitle={nextYearTitle}
             textStyle={textStyle}
             headingLevel={headingLevel}
+            isRTL={isRTL}
           />
 
           <Weekdays
